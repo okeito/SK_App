@@ -1,22 +1,18 @@
 //
-//  ArticleViewController.m
+//  InfoViewController.m
 //  St Kilda App
 //
-//  Created by Okeito on 3/30/14.
+//  Created by Okeito on 3/31/14.
 //  Copyright (c) 2014 Okeito. All rights reserved.
 //
 
-#import "ArticleViewController.h"
+#import "InfoViewController.h"
 
-@interface ArticleViewController ()
+@interface InfoViewController ()
 
-
-@property (weak) IBOutlet UIImageView *imageView;
 @end
 
-
-
-@implementation ArticleViewController
+@implementation InfoViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,16 +27,14 @@
 {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view.
-    
-    NSLog(@"current feed = %@",_currentFeed.title);
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
 }
 
--(IBAction)readMore:(id)sender
+- (void)didReceiveMemoryWarning
 {
-    
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-
 
 /*
 #pragma mark - Navigation

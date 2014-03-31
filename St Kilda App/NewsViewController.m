@@ -12,7 +12,7 @@
 #import "ArticleCell.h"
 #import "NSString+HTML.h"
 #import "UIImageView+WebCache.h"
-#import "UIImage+Resize.h"
+#import "UIImage+ProportionalFill.h"
 
 
 @interface NewsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -141,26 +141,35 @@
     
     RSSFeed *feed=[tableDataArray objectAtIndex:indexPath.row];
     
-    NSString *str = feed.title ;
+    // ---Setting image -----
+    UIImageView *imageView=(UIImageView *)[cell viewWithTag:2];
     
-    //Set the titles
+    [imageView setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
+    imageView.clipsToBounds = YES;
+    
+    imageView.backgroundColor = [UIColor redColor];
+    
+    // ---Resizing Image -----
+    UIImage *oldImage = imageView.image;
+	UIImage *newImage;
+	CGSize newSize = imageView.frame.size;
+	
+    
+    // newImage = [oldImage imageScaledToFitSize:newSize]; // uses MGImageResizeScale
+    // newImage = [oldImage imageCroppedToFitSize:newSize]; // uses MGImageResizeCrop
+     newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
+    // newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropEnd];
+    
+	imageView.image = newImage;
+    
+    //---- Set label title ------
+    NSString *str = feed.title;
     UILabel *title = (UILabel *)[cell viewWithTag:1];
     title.text = [str stringByDecodingHTMLEntities];
     [title setLineBreakMode:NSLineBreakByWordWrapping];
     title.numberOfLines = 0;
     [title sizeToFit];
-        
-    //Set the images
-    UIImageView *imageView=(UIImageView *)[cell viewWithTag:2];
     
-    [imageView setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
-    
-//    UIImage *newImage;
-//	CGSize newSize = resultView.frame.size;
-//    
-//    newImage = [imageView imageScaledToFitSize:newSize];
-//    
-//    
     return cell;
 }
 
@@ -178,7 +187,11 @@
 {
     // TODO: Select Item
     [self performSegueWithIdentifier:@"viewArticleDetails" sender:self];
+    RSSFeed *feed=[tableDataArray objectAtIndex:indexPath.row];
+    ArticleViewController *AVC=[[ArticleViewController alloc] initWithNibName:@"ArticleDetails" bundle:nil];
+    AVC.currentFeed=feed;
     [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    
 }
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     // TODO: Deselect item
@@ -196,6 +209,8 @@
 //    CGSize retval = photo.thumbnail.size.width > 0 ? photo.thumbnail.size : CGSizeMake(100, 100);
 //    retval.height += 35; retval.width += 35; return retval;
     CGSize imgSize = CGSizeMake(145, 190);
+    
+    
     return imgSize;
 }
 
@@ -209,8 +224,10 @@
 #pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"viewArticleDetails"]) {
+        
         NewsViewController *newsViewController = segue.sourceViewController;
         newsViewController = sender;
+
     }
 }
 

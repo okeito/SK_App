@@ -40,9 +40,9 @@
 		76AD060C18E82604005AB008 /* UIImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 76AD05FD18E82604005AB008 /* UIImage+GIF.m */; };
 		76AD060D18E82604005AB008 /* UIImage+MultiFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 76AD05FF18E82604005AB008 /* UIImage+MultiFormat.m */; };
 		76AD060E18E82604005AB008 /* UIImage+WebP.m in Sources */ = {isa = PBXBuildFile; fileRef = 76AD060118E82604005AB008 /* UIImage+WebP.m */; };
-		76AD061418E84C97005AB008 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 76AD061318E84C97005AB008 /* UIImage+Resize.m */; };
-		76AD061918E84D17005AB008 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 76AD061618E84D17005AB008 /* UIImage+Alpha.m */; };
-		76AD061A18E84D17005AB008 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 76AD061818E84D17005AB008 /* UIImage+RoundedCorner.m */; };
+		76F0E07A18E98FA10087FFA5 /* EventsFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F0E07918E98FA10087FFA5 /* EventsFeedViewController.m */; };
+		76F0E07E18E990690087FFA5 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F0E07D18E990690087FFA5 /* InfoViewController.m */; };
+		76F0E08218E9A8440087FFA5 /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F0E08118E9A8440087FFA5 /* UIImage+ProportionalFill.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,12 +114,12 @@
 		76AD05FF18E82604005AB008 /* UIImage+MultiFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MultiFormat.m"; sourceTree = "<group>"; };
 		76AD060018E82604005AB008 /* UIImage+WebP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WebP.h"; sourceTree = "<group>"; };
 		76AD060118E82604005AB008 /* UIImage+WebP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WebP.m"; sourceTree = "<group>"; };
-		76AD061218E84C97005AB008 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
-		76AD061318E84C97005AB008 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
-		76AD061518E84D17005AB008 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
-		76AD061618E84D17005AB008 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
-		76AD061718E84D17005AB008 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
-		76AD061818E84D17005AB008 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+		76F0E07818E98FA10087FFA5 /* EventsFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsFeedViewController.h; sourceTree = "<group>"; };
+		76F0E07918E98FA10087FFA5 /* EventsFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsFeedViewController.m; sourceTree = "<group>"; };
+		76F0E07C18E990690087FFA5 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		76F0E07D18E990690087FFA5 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		76F0E08018E9A8440087FFA5 /* UIImage+ProportionalFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ProportionalFill.h"; sourceTree = "<group>"; };
+		76F0E08118E9A8440087FFA5 /* UIImage+ProportionalFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ProportionalFill.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +162,8 @@
 		7634A8C618E7BAE3006D5180 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				76F0E07818E98FA10087FFA5 /* EventsFeedViewController.h */,
+				76F0E07918E98FA10087FFA5 /* EventsFeedViewController.m */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -176,12 +178,8 @@
 		7634A8C918E7BCA2006D5180 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
-				76AD061218E84C97005AB008 /* UIImage+Resize.h */,
-				76AD061318E84C97005AB008 /* UIImage+Resize.m */,
-				76AD061518E84D17005AB008 /* UIImage+Alpha.h */,
-				76AD061618E84D17005AB008 /* UIImage+Alpha.m */,
-				76AD061718E84D17005AB008 /* UIImage+RoundedCorner.h */,
-				76AD061818E84D17005AB008 /* UIImage+RoundedCorner.m */,
+				76F0E08018E9A8440087FFA5 /* UIImage+ProportionalFill.h */,
+				76F0E08118E9A8440087FFA5 /* UIImage+ProportionalFill.m */,
 				76AD05E318E8256E005AB008 /* SDWebImage */,
 				76AD05DF18E820D9005AB008 /* MWFeedParser */,
 				76AD05DE18E820CE005AB008 /* TBXML */,
@@ -194,6 +192,7 @@
 			children = (
 				76089CD618E27189004FC1AB /* MainStoryboard.storyboard */,
 				7634A8C918E7BCA2006D5180 /* Vendors */,
+				76F0E07B18E9903F0087FFA5 /* Info */,
 				7634A8C218E7926A006D5180 /* News */,
 				7634A8C618E7BAE3006D5180 /* Events */,
 				7634A8C718E7BAF8006D5180 /* Deals */,
@@ -320,6 +319,15 @@
 			name = SDWebImage;
 			sourceTree = "<group>";
 		};
+		76F0E07B18E9903F0087FFA5 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				76F0E07C18E990690087FFA5 /* InfoViewController.h */,
+				76F0E07D18E990690087FFA5 /* InfoViewController.m */,
+			);
+			name = Info;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -424,20 +432,20 @@
 				76AD060818E82604005AB008 /* SDWebImageDownloaderOperation.m in Sources */,
 				76AD060918E82604005AB008 /* SDWebImageManager.m in Sources */,
 				7634A8C518E792C8006D5180 /* ArticleViewController.m in Sources */,
+				76F0E08218E9A8440087FFA5 /* UIImage+ProportionalFill.m in Sources */,
 				76AD05DA18E7F761005AB008 /* ArticleCell.m in Sources */,
 				76AD060718E82604005AB008 /* SDWebImageDownloader.m in Sources */,
 				76AD060218E82604005AB008 /* MKAnnotationView+WebCache.m in Sources */,
-				76AD061A18E84D17005AB008 /* UIImage+RoundedCorner.m in Sources */,
 				76AD060518E82604005AB008 /* SDWebImageCompat.m in Sources */,
 				76AD060A18E82604005AB008 /* SDWebImagePrefetcher.m in Sources */,
 				76AD060D18E82604005AB008 /* UIImage+MultiFormat.m in Sources */,
 				76AD05DD18E820C6005AB008 /* NSString+HTML.m in Sources */,
-				76AD061918E84D17005AB008 /* UIImage+Alpha.m in Sources */,
 				769C1B30182DEEEC0025E1CB /* AppDelegate.m in Sources */,
 				76AD060B18E82604005AB008 /* UIButton+WebCache.m in Sources */,
 				76AD05E618E825BA005AB008 /* UIImageView+WebCache.m in Sources */,
+				76F0E07A18E98FA10087FFA5 /* EventsFeedViewController.m in Sources */,
 				76AD060418E82604005AB008 /* SDImageCache.m in Sources */,
-				76AD061418E84C97005AB008 /* UIImage+Resize.m in Sources */,
+				76F0E07E18E990690087FFA5 /* InfoViewController.m in Sources */,
 				76AD05E218E821E0005AB008 /* GTMNSString+HTML.m in Sources */,
 				7634A8CB18E7BCC2006D5180 /* TBXML.m in Sources */,
 				769C1B2C182DEEEC0025E1CB /* main.m in Sources */,

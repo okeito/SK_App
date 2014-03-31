@@ -13,7 +13,11 @@
     NSMutableArray *RSSFeedArray;
     NSMutableArray *tableDataArray;
     IBOutlet UITableView *feedTable;
+
+
 }
+
+
 
 
 @end
