@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -16,11 +18,18 @@
 //    // Override point for customization after application launch.
 //    self.window.backgroundColor = [UIColor whiteColor];
 //    [self.window makeKeyAndVisible];
-    [[UIView appearance] setTintColor:[UIColor whiteColor]];
+
+
+    [self customizeControls];
+    return YES;
+}
+
+- (void) customizeControls
+{
+    
     [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-        
-    return YES;
+    [[UITabBar appearance] setSelectedImageTintColor: [UIColor blackColor]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

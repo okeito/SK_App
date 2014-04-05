@@ -51,9 +51,8 @@
    // [self setNeedsStatusBarAppearanceUpdate];
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
-    
+
     self.collectionView.backgroundColor = [UIColor whiteColor];
-  //  [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"article"];
     
     RSSFeedArray=[[NSMutableArray alloc] init];
     tableDataArray=[[NSMutableArray alloc] init];

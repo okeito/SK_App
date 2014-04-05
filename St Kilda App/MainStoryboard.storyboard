@@ -225,11 +225,13 @@
             </objects>
             <point key="canvasLocation" x="852" y="1492"/>
         </scene>
-        <!--Navigation Controller - News-->
+        <!--Navigation Controller-->
         <scene sceneID="VK7-lE-S2j">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vjq-gt-ePm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="News" id="xPz-EH-zQH"/>
+                    <tabBarItem key="tabBarItem" title="" image="news_icon" id="xPz-EH-zQH">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tfJ-qS-tCb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -244,11 +246,11 @@
             </objects>
             <point key="canvasLocation" x="331" y="-500"/>
         </scene>
-        <!--Navigation Controller - Info-->
+        <!--Navigation Controller-->
         <scene sceneID="Pbu-96-UAW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lhd-xI-OKA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Info" id="gxA-wF-WTM"/>
+                    <tabBarItem key="tabBarItem" title="" image="info_icon" id="gxA-wF-WTM"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zYr-18-A6R">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -263,11 +265,11 @@
             </objects>
             <point key="canvasLocation" x="326" y="1492"/>
         </scene>
-        <!--Navigation Controller - Deals-->
+        <!--Navigation Controller-->
         <scene sceneID="Ggi-He-dzW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EoN-eT-Fw4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Deals" id="Qjq-P0-K1m"/>
+                    <tabBarItem key="tabBarItem" title="" image="deal_icon" id="Qjq-P0-K1m"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RgI-70-mBK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -282,11 +284,13 @@
             </objects>
             <point key="canvasLocation" x="331" y="838"/>
         </scene>
-        <!--Navigation Controller - Events-->
+        <!--Navigation Controller-->
         <scene sceneID="cel-VZ-Fkp">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OS2-Np-uvM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Events" id="Yc5-eB-iTU"/>
+                    <tabBarItem key="tabBarItem" title="" image="event_icon" id="Yc5-eB-iTU">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-13"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cqn-Rc-hj1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -302,6 +306,12 @@
             <point key="canvasLocation" x="331" y="176"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="deal_icon" width="30" height="30"/>
+        <image name="event_icon" width="27" height="30"/>
+        <image name="info_icon" width="30" height="30"/>
+        <image name="news_icon" width="36" height="30"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
