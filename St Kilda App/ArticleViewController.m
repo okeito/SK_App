@@ -7,13 +7,17 @@
 //
 
 #import "ArticleViewController.h"
+#import "NSString+HTML.h"
+#import "UIImageView+WebCache.h"
+#import "MKAnnotationView+WebCache.h"
 
 @interface ArticleViewController ()
 
 
 @property (weak) IBOutlet UIImageView *imageView;
-@end
 
+
+@end
 
 
 @implementation ArticleViewController
@@ -31,9 +35,13 @@
 {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view.
+    [_articleImage setImageWithURL:[NSURL URLWithString:_newsStory.image] placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
+    _articleHeadline.text = [_newsStory.headline stringByDecodingHTMLEntities];
+    _articleText.text = [_newsStory.story stringByDecodingHTMLEntities];
+   
+   NSLog(@"\n \n passed and received data = %@",self.newsStory.headline);
+    NSLog(@"passed and received data = %@",self.newsStory.story);
     
-    NSLog(@"current feed = %@",_currentFeed.title);
 }
 
 -(IBAction)readMore:(id)sender

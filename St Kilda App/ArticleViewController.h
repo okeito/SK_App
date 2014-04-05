@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "NewsViewController.h"
+#import "NewsStory.h"
 
 @interface ArticleViewController : UIViewController <UITextViewDelegate>
-{
-    IBOutlet UILabel *titleLabel;
-    IBOutlet UITextView *descreptionTextView;
-    IBOutlet UIImageView *imageNews;
-    IBOutlet UIScrollView *scroll;
-}
+
+@property (weak, nonatomic) IBOutlet UIImageView *articleImage;
+@property (weak, nonatomic) IBOutlet UILabel *articleHeadline;
+@property (weak, nonatomic) IBOutlet UITextView *articleText;
+
+@property (nonatomic, strong) NewsStory *newsStory;
+
 
 @property(nonatomic,retain)RSSFeed *currentFeed;
 

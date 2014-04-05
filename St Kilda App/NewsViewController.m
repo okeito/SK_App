@@ -13,6 +13,7 @@
 #import "NSString+HTML.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+ProportionalFill.h"
+#import "UICustomLabel.h"
 
 
 @interface NewsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -118,7 +119,7 @@
     tableDataArray=[NSMutableArray arrayWithArray:RSSFeedArray];
     [feedTable reloadData];
     feedTable.userInteractionEnabled=TRUE;
-    NSLog(@"THE DATA: %@",tableDataArray);
+    // NSLog(@"THE DATA: %@",tableDataArray);
 }
 
 #pragma mark - UICollectionView Datasource
@@ -146,29 +147,31 @@
     
     [imageView setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
     imageView.clipsToBounds = YES;
-    
-    imageView.backgroundColor = [UIColor redColor];
+    imageView.backgroundColor = [UIColor lightGrayColor];
     
     // ---Resizing Image -----
     UIImage *oldImage = imageView.image;
 	UIImage *newImage;
 	CGSize newSize = imageView.frame.size;
-	
-    
     // newImage = [oldImage imageScaledToFitSize:newSize]; // uses MGImageResizeScale
     // newImage = [oldImage imageCroppedToFitSize:newSize]; // uses MGImageResizeCrop
-     newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
-    // newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropEnd];
-    
+    // newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
+     newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropEnd];
 	imageView.image = newImage;
     
     //---- Set label title ------
     NSString *str = feed.title;
-    UILabel *title = (UILabel *)[cell viewWithTag:1];
-    title.text = [str stringByDecodingHTMLEntities];
-    [title setLineBreakMode:NSLineBreakByWordWrapping];
-    title.numberOfLines = 0;
-    [title sizeToFit];
+    
+    UICustomLabel *headline = (UICustomLabel *)[cell viewWithTag:1];
+    headline.topInset = 2;
+    headline.leftInset = 5;
+    headline.bottomInset = 3;
+    headline.rightInset = 5;
+    headline.text = [str stringByDecodingHTMLEntities];
+    [headline setLineBreakMode:NSLineBreakByWordWrapping];
+    headline.numberOfLines = 0;
+    [headline sizeToFit];
+    headline.backgroundColor = [UIColor  colorWithWhite:1 alpha:0.90];
     
     return cell;
 }
@@ -187,9 +190,6 @@
 {
     // TODO: Select Item
     [self performSegueWithIdentifier:@"viewArticleDetails" sender:self];
-    RSSFeed *feed=[tableDataArray objectAtIndex:indexPath.row];
-    ArticleViewController *AVC=[[ArticleViewController alloc] initWithNibName:@"ArticleDetails" bundle:nil];
-    AVC.currentFeed=feed;
     [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
 }
@@ -225,12 +225,23 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"viewArticleDetails"]) {
         
-        NewsViewController *newsViewController = segue.sourceViewController;
-        newsViewController = sender;
-
+        NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
+        NSIndexPath *indexPath = [selectedItems firstObject];
+        
+        RSSFeed *feed=[tableDataArray objectAtIndex:indexPath.row];
+        NewsStory *newsStory = [[NewsStory alloc] init];
+        newsStory.image = feed.rssFeedImage;
+        newsStory.headline = feed.title;
+        newsStory.story = feed.descriptionText;
+    
+        ArticleViewController *AVC = segue.destinationViewController;
+        AVC.newsStory=newsStory;
+        //NSLog(@"all of  it: %@", newsStory.story);
     }
 }
 
 #pragma mark -SearchBar  Delegate Methods
+
+
 
 @end
