@@ -10,4 +10,6 @@
 
 @interface InfoViewController : UIViewController
 
+- (IBAction)sendToSocial:(UIButton *)sender;
+
 @end

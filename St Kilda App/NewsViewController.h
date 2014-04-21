@@ -12,24 +12,11 @@
 {
     NSMutableArray *RSSFeedArray;
     NSMutableArray *tableDataArray;
-    IBOutlet UITableView *feedTable;
-
-
+ //   IBOutlet UITableView *feedTable;
 }
 
 
-
-
 @end
 
-@interface RSSFeed : NSObject
-@property(nonatomic,retain)NSString *title;
-@property(nonatomic,retain)NSString *link;
-@property(nonatomic,retain)NSString *comments;
-@property(nonatomic,retain)NSString *pubDate;
-@property(nonatomic,retain)NSMutableArray *categories;
-@property(nonatomic,retain)NSString *descriptionText;
-@property(nonatomic,retain)NSString *rssFeedImage;
-@end
 
 

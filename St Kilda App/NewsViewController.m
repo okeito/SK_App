@@ -14,64 +14,74 @@
 #import "UIImageView+WebCache.h"
 #import "UIImage+ProportionalFill.h"
 #import "UICustomLabel.h"
+#import "RSSFeed.h"
 
 
 @interface NewsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @end
 
-@implementation RSSFeed
-@synthesize title;
-@synthesize link;
-@synthesize comments;
-@synthesize pubDate;
-@synthesize categories;
-@synthesize descriptionText;
-@synthesize rssFeedImage;
-@end
 
 @implementation NewsViewController
 
--(UIStatusBarStyle)preferredStatusBarStyle
+
+//-(instancetype) init
+//{
+//    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+//    layout.itemSize = CGSizeMake(160.0, 160.0);
+//    layout.minimumInteritemSpacing = 1.0;
+//    return (self = [super initWithCollectionViewLayout:layout]);
+//}
+
+-(void) viewWillAppear:(BOOL)animated
 {
-    return UIStatusBarStyleLightContent;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
--(instancetype) init {
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(160.0, 160.0);
-    layout.minimumInteritemSpacing = 1.0;
-    return (self = [super initWithCollectionViewLayout:layout]);
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-   // [self setNeedsStatusBarAppearanceUpdate];
-    
+    [self setNeedsStatusBarAppearanceUpdate];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
-
     self.collectionView.backgroundColor = [UIColor whiteColor];
     
     RSSFeedArray=[[NSMutableArray alloc] init];
     tableDataArray=[[NSMutableArray alloc] init];
-    [self loadNews];
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self loadNews];
+        });
+    });
+    
+//    for (NSString* family in [UIFont familyNames])
+//    {
+//        NSLog(@"%@", family);
+//        
+//        for (NSString* name in [UIFont fontNamesForFamilyName: family])
+//        {
+//            NSLog(@"  %@", name);
+//        }
+//    }
+    
 }
 
+
 #pragma mark - Getting Data
--(void) loadNews{
+
+-(void) loadNews
+{
     [RSSFeedArray removeAllObjects];
-    feedTable.userInteractionEnabled=FALSE;
+ //   feedTable.userInteractionEnabled=FALSE;
     
     NSURL *myUrl = [NSURL URLWithString:@"http://stkildanews.com/?cat=17&feed=rss2"];
-    
     NSData *myData = [NSData dataWithContentsOfURL:myUrl];
-    
     TBXML *sourceXML = [[TBXML alloc] initWithXMLData:myData error:nil];
     
-  //  TBXML *tbxml = [TBXML tbxmlWithURL:[NSURL URLWithString :@"http://stkildanews.com/?cat=17&feed=rss2"]];
-    TBXMLElement *rootelement = sourceXML.rootXMLElement; //Geting the rot node
+    TBXMLElement *rootelement = sourceXML.rootXMLElement; //Geting the root node
     if(rootelement) {
         TBXMLElement *channelElement = [TBXML childElementNamed:@"channel" parentElement:rootelement];
         TBXMLElement *itemElement = [TBXML childElementNamed:@"item" parentElement:channelElement];
@@ -98,12 +108,14 @@
             TBXMLElement *categoryElement = [TBXML childElementNamed:@"category" parentElement:itemElement];
             
             NSMutableArray *categories=[[NSMutableArray alloc] init];
-            while (categoryElement) {
+            while (categoryElement)
+            {
                 [categories addObject:[TBXML textForElement:categoryElement]];
                 categoryElement =[TBXML nextSiblingNamed:@"category" searchFromElement:categoryElement];
             }
             TBXMLElement *enclosureElement = [TBXML childElementNamed:@"enclosure" parentElement:itemElement];
-            if (enclosureElement) {
+            if (enclosureElement)
+            {
                 NSString *imageLink = [TBXML valueOfAttributeNamed:@"url" forElement:enclosureElement];
                 feed.rssFeedImage = imageLink;
             }
@@ -116,52 +128,40 @@
     else
         [UIApplication sharedApplication].networkActivityIndicatorVisible=FALSE;
     tableDataArray=[NSMutableArray arrayWithArray:RSSFeedArray];
-    [feedTable reloadData];
-    feedTable.userInteractionEnabled=TRUE;
+//    [feedTable reloadData];
+//    feedTable.userInteractionEnabled=TRUE;
     // NSLog(@"THE DATA: %@",tableDataArray);
+    
+    [self.collectionView reloadData];
 }
 
 #pragma mark - UICollectionView Datasource
-//1
+//-1
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return [tableDataArray count];
 }
 
-//2
-- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+//-2
+- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView
+{
     return 1;//change this
 }
 
-//3
+//-3
 - (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"article" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor darkGrayColor];
-    
+
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     RSSFeed *feed=[tableDataArray objectAtIndex:indexPath.row];
-    
-    // ---Setting image -----
-    UIImageView *imageView=(UIImageView *)[cell viewWithTag:2];
-    
-    [imageView setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
-    imageView.clipsToBounds = YES;
-    imageView.backgroundColor = [UIColor lightGrayColor];
-    
-    // ---Resizing Image -----
-    UIImage *oldImage = imageView.image;
-	UIImage *newImage;
-	CGSize newSize = imageView.frame.size;
-    // newImage = [oldImage imageScaledToFitSize:newSize]; // uses MGImageResizeScale
-    // newImage = [oldImage imageCroppedToFitSize:newSize]; // uses MGImageResizeCrop
-    // newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
-     newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropEnd];
-	imageView.image = newImage;
-    
+
     //---- Set label title ------
     NSString *str = feed.title;
-    
     UICustomLabel *headline = (UICustomLabel *)[cell viewWithTag:1];
+    headline.font = [UIFont fontWithName:@"BebasNeueBold" size:17];
+
     headline.topInset = 2;
     headline.leftInset = 5;
     headline.bottomInset = 3;
@@ -170,12 +170,36 @@
     [headline setLineBreakMode:NSLineBreakByWordWrapping];
     headline.numberOfLines = 0;
     [headline sizeToFit];
-    headline.backgroundColor = [UIColor  colorWithWhite:1 alpha:0.90];
+    headline.backgroundColor = [UIColor  colorWithWhite:1 alpha:0.92];
+    
+    UIImageView *imageView=(UIImageView *)[cell viewWithTag:2];
+    dispatch_async(queue, ^{
+        
+        [imageView setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            // --- Setting image -----//
+            
+            imageView.clipsToBounds = YES;
+            imageView.backgroundColor = [UIColor lightGrayColor];
+            
+            // --- Resizing Image -----//
+            UIImage *oldImage = imageView.image;
+            UIImage *newImage;
+            CGSize newSize = imageView.frame.size;
+            // newImage = [oldImage imageScaledToFitSize:newSize]; // uses MGImageResizeScale
+            // newImage = [oldImage imageCroppedToFitSize:newSize]; // uses MGImageResizeCrop
+            // newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
+            newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropEnd];
+            imageView.image = newImage;
+            
+        });
+    });
     
     return cell;
 }
 
-// 4
+//-- 4
 /*- (UICollectionReusableView *)collectionView:
  (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
  {
@@ -192,7 +216,8 @@
     [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
 }
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     // TODO: Deselect item
 }
 
@@ -202,28 +227,23 @@
 // 1
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSString *searchTerm = self.searches[indexPath.section]; FlickrPhoto *photo =
-//    self.searchResults[searchTerm][indexPath.row];
-    // 2
-//    CGSize retval = photo.thumbnail.size.width > 0 ? photo.thumbnail.size : CGSizeMake(100, 100);
-//    retval.height += 35; retval.width += 35; return retval;
     CGSize imgSize = CGSizeMake(145, 190);
-    
-    
     return imgSize;
 }
 
 // 3
 - (UIEdgeInsets)collectionView:
-(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
     return UIEdgeInsetsMake(10, 10, 20, 10);
 }
 
 
 #pragma mark - Segue
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"viewArticleDetails"]) {
-        
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"viewArticleDetails"])
+    {
         NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
         NSIndexPath *indexPath = [selectedItems firstObject];
         

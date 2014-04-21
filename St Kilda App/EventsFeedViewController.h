@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TBXML.h"
 
-@interface EventsFeedViewController : UIViewController
-
+@interface EventsFeedViewController : UICollectionViewController
+{
+    NSArray *keyDates;
+    
+    NSMutableArray * arrayOfEvents;
+    NSMutableArray *arrayTableView;
+    
+    NSMutableArray *arrayOfEventDates;
+    
+    NSMutableDictionary *dictEventsByDate;
+}
 @end

@@ -26,7 +26,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
 }
 
@@ -47,4 +46,8 @@
 }
 */
 
+- (IBAction)sendToSocial:(UIButton *)sender
+{
+    
+}
 @end

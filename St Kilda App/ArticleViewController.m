@@ -22,6 +22,7 @@
 
 @implementation ArticleViewController
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,14 +35,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     [_articleImage setImageWithURL:[NSURL URLWithString:_newsStory.image] placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
     _articleHeadline.text = [_newsStory.headline stringByDecodingHTMLEntities];
-    _articleText.text = [_newsStory.story stringByDecodingHTMLEntities];
-   
-   NSLog(@"\n \n passed and received data = %@",self.newsStory.headline);
-    NSLog(@"passed and received data = %@",self.newsStory.story);
+    _articleHeadline.font = [UIFont fontWithName:@"BebasNeueBold" size:25];
     
+    _articleText.text = [_newsStory.story stringByDecodingHTMLEntities];
+//   
+//   NSLog(@"\n \n passed and received data = %@",self.newsStory.headline);
+//    NSLog(@"passed and received data = %@",self.newsStory.story);
+//    
 }
 
 -(IBAction)readMore:(id)sender

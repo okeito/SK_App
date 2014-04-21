@@ -19,8 +19,6 @@
 @property (nonatomic, strong) NewsStory *newsStory;
 
 
-@property(nonatomic,retain)RSSFeed *currentFeed;
-
 -(IBAction)readMore:(id)sender;
 
 @end
