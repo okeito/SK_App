@@ -36,6 +36,7 @@ IBOutlet UILabel *labelFinePrint;
 IBOutlet UITextView *textViewFinePrint;
     
 }
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (nonatomic) Deals * selectedDeal;
 

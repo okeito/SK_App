@@ -8,6 +8,7 @@
 
 #import "DealDetailsViewController.h"
 #import "UIImageView+WebCache.h"
+#import "SocialWebViewController.h"
 
 
 @interface DealDetailsViewController ()
@@ -23,6 +24,7 @@
 
     [self setLabelOutlets];
     [self setImageOutlet];
+    self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,6 +56,7 @@
         labelValue.text = [NSString stringWithFormat:@"$%@",_selectedDeal.dealValue];
         labelDiscount.text = [NSString stringWithFormat:@"%d%%",intDiscount];
         labelYouSave.text = [NSString stringWithFormat:@"$%d",intYouSave];
+        
     }
 }
 
@@ -69,22 +72,24 @@
 
 -(IBAction)backAction:sender
 {
-    NSLog(@"Going back");
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(IBAction)bookDeal:(id)sende
 {
-    NSLog(@"Book BTN Pressed");
+    [self performSegueWithIdentifier:@"bookDeal" sender:self];
 }
 
 #pragma mark - Navigation
-/*
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    NSLog(@"Gonna book it");
+    NSLog( @"https://github.com/jverdi/JVFloatLabeledTextField");
 }
-*/
+
 
 @end

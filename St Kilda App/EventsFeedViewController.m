@@ -169,6 +169,7 @@
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:1];
     NSString * str = objectEvents.eventName;
     titleLabel.text = str;
+    titleLabel.font = [UIFont fontWithName:@"BebasNeueBold" size:17];
     /*
      headline.font = [UIFont fontWithName:@"BebasNeueRegular" size:20];
      headline.font = [UIFont fontWithName:@"BebasNeue-Thin" size:20];
@@ -209,8 +210,8 @@
      EventsHeaderView *dateHeaderView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                           UICollectionElementKindSectionHeader withReuseIdentifier:@"dateHeader" forIndexPath:indexPath];
 
-     NSString *str = [keyDates objectAtIndex:indexPath.row];
-    // NSLog(@"str= %@", str);
+     NSArray *str = [keyDates objectAtIndex:indexPath.row];
+    NSLog(@"str = %@ (keyDates)= %@", str, keyDates);
      NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
      [formatter setDateFormat:@"dd/MM/yyyy"];
      NSDate *date = [formatter dateFromString:str];
@@ -273,6 +274,8 @@
         Event *selectedEvent =[arrayOfEvents objectAtIndex:indexPath.row];
         DetailsOfEventViewController *EvtDets = segue.destinationViewController;
         EvtDets.selectedEvent = selectedEvent;
+        
+        EvtDets.hidesBottomBarWhenPushed = YES;
     }
 
 }

@@ -54,7 +54,7 @@
     [_imageForEvent setImageWithURL:[NSURL URLWithString:_selectedEvent.eventImage]
                    placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
    // _selectedEvent.eventVenue;
-
+    
 }
 
 -(IBAction) exitView:(id)sender

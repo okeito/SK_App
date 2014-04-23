@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) NewsStory *newsStory;
 
-
+-(IBAction)exitView:(id)sender;
 -(IBAction)readMore:(id)sender;
 
 @end

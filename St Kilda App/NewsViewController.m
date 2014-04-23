@@ -160,7 +160,7 @@
     //---- Set label title ------
     NSString *str = feed.title;
     UICustomLabel *headline = (UICustomLabel *)[cell viewWithTag:1];
-    headline.font = [UIFont fontWithName:@"BebasNeueBold" size:17];
+    headline.font = [UIFont fontWithName:@"BebasNeueBold" size:16];
 
     headline.topInset = 2;
     headline.leftInset = 5;

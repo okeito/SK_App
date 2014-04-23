@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface InfoViewController : UIViewController
+@interface InfoViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
+
+@property (nonatomic) NSURL* url;
+@property (weak, nonatomic) IBOutlet UILabel *stalkUsLabel;
 - (IBAction)sendToSocial:(UIButton *)sender;
+-(void)sendTomail:(NSString *)to withSubject:(NSString *)subj withBody:(NSString *)body;
 
 @end
