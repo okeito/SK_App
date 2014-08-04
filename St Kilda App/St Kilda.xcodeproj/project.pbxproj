@@ -52,6 +52,7 @@
 		76B613D618F19556001D8592 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 769C1B21182DEEEC0025E1CB /* CoreGraphics.framework */; };
 		76B613D718F1955B001D8592 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 769C1B21182DEEEC0025E1CB /* CoreGraphics.framework */; };
 		76CB8E4618F2E24800B0BD05 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 76CB8E4518F2E24800B0BD05 /* Event.m */; };
+		76CD201D1909D85000B37925 /* BookingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76CD201C1909D85000B37925 /* BookingViewController.m */; };
 		76EAE9FF19013D2500E8CBEF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76EAE9FE19013D2500E8CBEF /* MapKit.framework */; };
 		76EAEA021902379000E8CBEF /* Deals.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EAEA011902379000E8CBEF /* Deals.m */; };
 		76EAEA0819023C4800E8CBEF /* DealCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EAEA0719023C4800E8CBEF /* DealCell.m */; };
@@ -150,6 +151,8 @@
 		76B613D018EFF317001D8592 /* DealsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealsViewController.m; sourceTree = "<group>"; };
 		76CB8E4418F2E24800B0BD05 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		76CB8E4518F2E24800B0BD05 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		76CD201B1909D85000B37925 /* BookingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookingViewController.h; sourceTree = "<group>"; };
+		76CD201C1909D85000B37925 /* BookingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookingViewController.m; sourceTree = "<group>"; };
 		76EAE9FE19013D2500E8CBEF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		76EAEA001902379000E8CBEF /* Deals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deals.h; sourceTree = "<group>"; };
 		76EAEA011902379000E8CBEF /* Deals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deals.m; sourceTree = "<group>"; };
@@ -253,6 +256,8 @@
 		7634A8C718E7BAF8006D5180 /* Deals */ = {
 			isa = PBXGroup;
 			children = (
+				76CD201B1909D85000B37925 /* BookingViewController.h */,
+				76CD201C1909D85000B37925 /* BookingViewController.m */,
 				76B613D218EFF454001D8592 /* Helper Classes */,
 				76B613CF18EFF317001D8592 /* DealsViewController.h */,
 				76B613D018EFF317001D8592 /* DealsViewController.m */,
@@ -484,7 +489,7 @@
 		769C1B14182DEEEC0025E1CB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = Okeito;
 				TargetAttributes = {
 					769C1B1B182DEEEC0025E1CB = {
@@ -556,6 +561,7 @@
 				7634A8C518E792C8006D5180 /* ArticleViewController.m in Sources */,
 				76F0E08218E9A8440087FFA5 /* UIImage+ProportionalFill.m in Sources */,
 				76AD05DA18E7F761005AB008 /* ArticleCell.m in Sources */,
+				76CD201D1909D85000B37925 /* BookingViewController.m in Sources */,
 				76AD060718E82604005AB008 /* SDWebImageDownloader.m in Sources */,
 				76AD060218E82604005AB008 /* MKAnnotationView+WebCache.m in Sources */,
 				76AD060518E82604005AB008 /* SDWebImageCompat.m in Sources */,
@@ -654,7 +660,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -686,6 +692,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -694,10 +701,6 @@
 		769C1B49182DEEEC0025E1CB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv7,
-					armv7s,
-				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -719,10 +722,6 @@
 		769C1B4A182DEEEC0025E1CB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv7,
-					armv7s,
-				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

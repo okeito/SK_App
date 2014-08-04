@@ -13,6 +13,11 @@
     NSMutableArray *RSSFeedArray;
     NSMutableArray *tableDataArray;
  //   IBOutlet UITableView *feedTable;
+    
+   // IBOutlet UIProgressView *threadProgressView;
+    
+    float recievedData;
+    float xpectedTotalSize;
 }
 
 

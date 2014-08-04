@@ -18,20 +18,14 @@
 
 
 @interface NewsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+{
 
+}
 @end
 
 
 @implementation NewsViewController
 
-
-//-(instancetype) init
-//{
-//    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-//    layout.itemSize = CGSizeMake(160.0, 160.0);
-//    layout.minimumInteritemSpacing = 1.0;
-//    return (self = [super initWithCollectionViewLayout:layout]);
-//}
 
 -(void) viewWillAppear:(BOOL)animated
 {
@@ -49,14 +43,24 @@
     RSSFeedArray=[[NSMutableArray alloc] init];
     tableDataArray=[[NSMutableArray alloc] init];
     
+    //--- Progress Indicator ----//
+
+    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
         
+        //[self performSelector: @selector(loadNews)];
+        
+        [self loadNews];
+        
         dispatch_sync(dispatch_get_main_queue(), ^{
-            [self loadNews];
+        [self.collectionView reloadData];
+        //[self loadNews];
+            
         });
     });
     
+    //FIND FONTS
 //    for (NSString* family in [UIFont familyNames])
 //    {
 //        NSLog(@"%@", family);
@@ -74,7 +78,7 @@
 
 -(void) loadNews
 {
-    [RSSFeedArray removeAllObjects];
+  //  [RSSFeedArray removeAllObjects];
  //   feedTable.userInteractionEnabled=FALSE;
     
     NSURL *myUrl = [NSURL URLWithString:@"http://stkildanews.com/?cat=17&feed=rss2"];
@@ -82,10 +86,12 @@
     TBXML *sourceXML = [[TBXML alloc] initWithXMLData:myData error:nil];
     
     TBXMLElement *rootelement = sourceXML.rootXMLElement; //Geting the root node
-    if(rootelement) {
+    if(rootelement)
+    {
         TBXMLElement *channelElement = [TBXML childElementNamed:@"channel" parentElement:rootelement];
         TBXMLElement *itemElement = [TBXML childElementNamed:@"item" parentElement:channelElement];
-        while (itemElement) {
+        while (itemElement)
+        {
             RSSFeed *feed=[[RSSFeed alloc] init];
             TBXMLElement *titleElement = [TBXML childElementNamed:@"title" parentElement:itemElement];
             feed.title=[TBXML textForElement:titleElement];
@@ -103,7 +109,9 @@
             feed.comments=[TBXML textForElement:commentsElement];
             
             TBXMLElement *descriptionElement = [TBXML childElementNamed:@"description1" parentElement:itemElement];
-            feed.descriptionText=[TBXML textForElement:descriptionElement];
+            if (descriptionElement) {
+                feed.descriptionText=[TBXML textForElement:descriptionElement];
+            }
             
             TBXMLElement *categoryElement = [TBXML childElementNamed:@"category" parentElement:itemElement];
             
@@ -126,11 +134,11 @@
         }
     }
     else
+      //  [self performSegueWithIdentifier:@"noData" sender:self];
         [UIApplication sharedApplication].networkActivityIndicatorVisible=FALSE;
+    
+    
     tableDataArray=[NSMutableArray arrayWithArray:RSSFeedArray];
-//    [feedTable reloadData];
-//    feedTable.userInteractionEnabled=TRUE;
-    // NSLog(@"THE DATA: %@",tableDataArray);
     
     [self.collectionView reloadData];
 }
@@ -176,6 +184,7 @@
     dispatch_async(queue, ^{
         
         [imageView setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
+        
         dispatch_sync(dispatch_get_main_queue(), ^{
             
             // --- Setting image -----//
@@ -192,10 +201,8 @@
             // newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
             newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropEnd];
             imageView.image = newImage;
-            
         });
     });
-    
     return cell;
 }
 
@@ -260,7 +267,6 @@
 }
 
 #pragma mark -SearchBar  Delegate Methods
-
 
 
 @end

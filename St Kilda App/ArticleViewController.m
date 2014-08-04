@@ -23,15 +23,6 @@
 @implementation ArticleViewController
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -42,10 +33,10 @@
     _articleHeadline.font = [UIFont fontWithName:@"BebasNeueBold" size:25];
     
     _articleText.text = [_newsStory.story stringByDecodingHTMLEntities];
-//   
+   
 //   NSLog(@"\n \n passed and received data = %@",self.newsStory.headline);
 //    NSLog(@"passed and received data = %@",self.newsStory.story);
-//    
+    
 }
 
 
@@ -54,8 +45,6 @@
 {
     
 }
-
-
 
 #pragma mark - Navigation
 

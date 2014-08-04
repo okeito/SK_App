@@ -24,6 +24,7 @@
 
     [self setLabelOutlets];
     [self setImageOutlet];
+    //[self.scrollView setContentSize: CGSizeMake(320, 568)];
     self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
 }
 
@@ -42,9 +43,9 @@
     textViewFinePrint.text = _selectedDeal.dealFinePrint;
     textViewTheBusiness.text =  _selectedDeal.dealBusiness;
     
-    NSLog(@"dealSendToMail = %@", _selectedDeal.dealSendToMail);
-    NSLog(@"price = %@", _selectedDeal.dealPrice);
-    NSLog(@"dealFromDate = %@", _selectedDeal.dealFromDate);
+    NSLog(@"\n dealSendToMail = %@", _selectedDeal.dealSendToMail);
+    NSLog(@"\n price = %@", _selectedDeal.dealPrice);
+    NSLog(@"\n dealFromDate = %@", _selectedDeal.dealFromDate);
     
     if (![_selectedDeal.dealValue isEqualToString:@""])
     {
@@ -56,7 +57,6 @@
         labelValue.text = [NSString stringWithFormat:@"$%@",_selectedDeal.dealValue];
         labelDiscount.text = [NSString stringWithFormat:@"%d%%",intDiscount];
         labelYouSave.text = [NSString stringWithFormat:@"$%d",intYouSave];
-        
     }
 }
 
@@ -65,10 +65,9 @@
     NSString *stringImageURL=[NSString stringWithFormat:@"http://stkildanews.com/wp-content/plugins/Deals/Images/%@",_selectedDeal.dealImage];
     NSURL *url = [NSURL URLWithString:stringImageURL];
     [imageViewDealImage setImageWithURL:url placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
-    
-    NSLog(@"dealImage = %@", _selectedDeal.dealImage);
-    NSLog(@"dealImageName = %@", _selectedDeal.dealImageName);
 }
+
+#pragma mark - Navigation
 
 -(IBAction)backAction:sender
 {
@@ -80,15 +79,12 @@
     [self performSegueWithIdentifier:@"bookDeal" sender:self];
 }
 
-#pragma mark - Navigation
-
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    NSLog(@"Gonna book it");
-    NSLog( @"https://github.com/jverdi/JVFloatLabeledTextField");
+    
+    NSLog( @" \n \n https://github.com/jverdi/JVFloatLabeledTextField");
 }
 
 

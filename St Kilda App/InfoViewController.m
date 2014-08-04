@@ -15,14 +15,6 @@
 
 @implementation InfoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -49,7 +41,7 @@
         {
             _url = [[NSURL alloc] initWithString:@"http://www.facebook.com/stkildanews"];
             [self performSegueWithIdentifier:@"goSocial" sender:self];
-            NSLog(@"tag.10 Fb");
+            //NSLog(@"tag.10 Fb");
             break;
         }
             
@@ -58,7 +50,7 @@
             
             _url = [[NSURL alloc] initWithString:@"http://www.twitter.com/stkilda_news"];
             [self performSegueWithIdentifier:@"goSocial" sender:self];
-            NSLog(@"tag.11 Twitter");
+            //NSLog(@"tag.11 Twitter");
             break;
         }
             
@@ -66,7 +58,7 @@
         {
             _url = [[NSURL alloc] initWithString:@"http://www.stkildanews.com"];
             [self performSegueWithIdentifier:@"goSocial" sender:self];
-            NSLog(@"tag.12 SKN");
+            //NSLog(@"tag.12 SKN");
             break;
         }
             
@@ -80,7 +72,6 @@
         default:
             break;
     }
-
 }
 
  // In a storyboard-based application, you will often want to do a little preparation before navigation

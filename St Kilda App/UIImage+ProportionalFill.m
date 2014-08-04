@@ -68,7 +68,7 @@
 				destX = 0.0;
 				destY = round((scaledHeight - targetHeight) / 2.0);
 			}
-		} else if (resizeMethod == MGImageResizeCropEnd) {
+		} else {
 			// Crop bottom or right
 			if (scaleWidth) {
 				// Crop bottom

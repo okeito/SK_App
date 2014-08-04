@@ -8,12 +8,12 @@
 
 #import "SocialWebViewController.h"
 
+
 @interface SocialWebViewController ()
 
 @end
 
 @implementation SocialWebViewController
-
 
 
 - (void)viewDidLoad
@@ -32,14 +32,19 @@
 }
 
 #pragma mark-Webview delegate method
-- (void)webViewDidStartLoad:(UIWebView *)webView{
-   // [activityIndicator startAnimating];
-    NSLog(@"webViewDidStartLoad");
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+   _activityIndicator.hidden = false;
+    [_activityIndicator startAnimating];
+    NSLog(@"\n \n webViewDidStartLoad");
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-  //  [activityIndicator stopAnimating];
-    NSLog(@"webViewDidFinishLoad");
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [_activityIndicator stopAnimating];
+    _activityIndicator.hidden = true;
+    NSLog(@" \n \nwebViewDidFinishLoad");
 }
 
 /*

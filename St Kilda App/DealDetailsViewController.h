@@ -11,6 +11,7 @@
 #import "DealsViewController.h"
 
 @interface DealDetailsViewController : UIViewController
+
 {
 
 IBOutlet UIImageView *imageViewDealImage;

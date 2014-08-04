@@ -57,7 +57,7 @@
     if(rootElement)
     {
         arrayOfEvents    = [[NSMutableArray alloc] init];
-        arrayTableView = [[NSMutableArray alloc] init];
+       // arrayTableView = [[NSMutableArray alloc] init];
      // arrayEventsTemp = [[NSArray alloc] init];
         TBXMLElement *channelElement = [TBXML childElementNamed:@"channel" parentElement:rootElement];
         TBXMLElement *eventsElement = [TBXML childElementNamed:@"item" parentElement:channelElement];
@@ -94,12 +94,12 @@
             objectEvents.eventInformation=[TBXML textForElement:venueElemenet];
             
             
-            //--- Store each parsed event in an array ---//
+            //--- Store each parsed event in array ---//
             [arrayOfEvents addObject:objectEvents];
             
             eventsElement =[TBXML nextSiblingNamed:@"item" searchFromElement:eventsElement];
         }
-        //NSLog(@"\n arrayOfEvents = %@",arrayOfEvents);
+        
         dictEventsByDate = [[NSMutableDictionary alloc] init];
         NSMutableArray *uniqueDatesArray = [[NSMutableArray alloc]init];
         
@@ -128,7 +128,7 @@
                 [eventsForCurrentEventDateArray addObject:event];
             }
         }
-        NSLog(@"\n dictEventsByDate =  %@",dictEventsByDate);
+        //NSLog(@"\n dictEventsByDate =  %@",dictEventsByDate);
         
         keyDates = [[NSArray alloc]initWithArray:uniqueDatesArray];
     }
@@ -157,13 +157,7 @@
     UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor lightGrayColor];
     
-    Event *objectEvents = [arrayOfEvents objectAtIndex:indexPath.row];
-    
-    // NSDictionary *sub = [[NSDictionary alloc]initWithDictionary:dictEventsByDate];
-    // NSArray *subArray = [[NSArray alloc]initWithArray:[sub objectForKey:[keyDates objectAtIndex:indexPath.section]]];
-    // objectEvents = [subArray objectAtIndex:indexPath.row];
-    // NSString *str = objectEvents.eventDate;
-    // Event *event=[dictEventsByDate objectAtIndex:indexPath.row];
+    Event *objectEvents = [arrayOfEvents objectAtIndex:indexPath.section];
 
     //-- set Title label
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:1];
@@ -210,17 +204,19 @@
      EventsHeaderView *dateHeaderView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                           UICollectionElementKindSectionHeader withReuseIdentifier:@"dateHeader" forIndexPath:indexPath];
 
-     NSArray *str = [keyDates objectAtIndex:indexPath.row];
-    NSLog(@"str = %@ (keyDates)= %@", str, keyDates);
+     NSString *strDate = [keyDates objectAtIndex:indexPath.section];
+    //NSLog(@"\n strDate = %@ \n from \n (keyDates)= %@", strDate, keyDates);
      NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
      [formatter setDateFormat:@"dd/MM/yyyy"];
-     NSDate *date = [formatter dateFromString:str];
+     NSDate *date = [formatter dateFromString:strDate];
    //  NSLog(@"Date::::: %@",date);
      [formatter setDateFormat:@"EEE"];
     // NSLog(@"DAY::: %@",[formatter stringFromDate:date]);
      
-     NSString *dateForLabel = [[NSString alloc]init];
-     dateForLabel = [NSString stringWithFormat:@"%@ %@",[formatter stringFromDate:date],[keyDates objectAtIndex:indexPath.row]];
+//     NSString *dateForLabel = [keyDates objectAtIndex:indexPath.section];
+
+     NSString *dateForLabel = [NSString stringWithFormat:@"%@ %@",[formatter stringFromDate:date],strDate];
+     
      [dateHeaderView setDateLabelText:dateForLabel];
      
      return dateHeaderView;
@@ -271,7 +267,7 @@
     {
         NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
         NSIndexPath *indexPath = [selectedItems firstObject];
-        Event *selectedEvent =[arrayOfEvents objectAtIndex:indexPath.row];
+        Event *selectedEvent =[arrayOfEvents objectAtIndex:indexPath.section];
         DetailsOfEventViewController *EvtDets = segue.destinationViewController;
         EvtDets.selectedEvent = selectedEvent;
         

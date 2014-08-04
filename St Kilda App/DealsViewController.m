@@ -204,7 +204,7 @@
 - (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"aDealCell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor lightGrayColor];
+    cell.backgroundColor = [UIColor whiteColor];
     
     Deals *objectDeals=[sortedDealsArray objectAtIndex:indexPath.row];
    
@@ -235,7 +235,7 @@
         
         NSURL *url = [NSURL URLWithString:stringImageURL];
         [imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
-        NSLog(@"%@",url);
+       // NSLog(@"\n \n url = \n %@",url);
         
         dispatch_sync(dispatch_get_main_queue(), ^{
             // --- Setting image -----//
