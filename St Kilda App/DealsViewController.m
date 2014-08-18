@@ -38,6 +38,8 @@
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
         
+        
+        
         dispatch_sync(dispatch_get_main_queue(), ^{
             [self performSelector:@selector(getDealsData) withObject:nil afterDelay:0.4];
         });
@@ -210,44 +212,33 @@
    
     //---- Set label title ------
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:1];
-    
     titleLabel.text = objectDeals.dealTitle;
     titleLabel.numberOfLines = 2;
     titleLabel.font = [UIFont fontWithName:@"BebasNeueBold" size:20];
     // -- Set Label Price ----//
     UILabel *priceLabel = (UILabel *)[cell viewWithTag:2];
-    priceLabel.font = [UIFont fontWithName:@"BebasNeueBold" size:26];
+    priceLabel.font = [UIFont fontWithName:@"BebasNeueBold" size:28];
     priceLabel.text = [NSString stringWithFormat:@"$%@", objectDeals.dealPrice];
-    
-    /*
-    headline.font = [UIFont fontWithName:@"BebasNeueRegular" size:20];
-    headline.font = [UIFont fontWithName:@"BebasNeue-Thin" size:20];
-    headline.font = [UIFont fontWithName:@"BebasNeueBook" size:20];
-    headline.font = [UIFont fontWithName:@"BebasNeueLight" size:20];
-    */
     
 
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
+        
         UIImageView *imageView=(UIImageView *)[cell viewWithTag:3];
+        UIImage *oldImage = imageView.image;
+        UIImage *newImage;
+        CGSize newSize = imageView.frame.size;
+        newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
+        imageView.image = newImage;
         NSString *stringImageURL=[NSString stringWithFormat:
                                   @"http://stkildanews.com/wp-content/plugins/Deals/Images/%@",objectDeals.dealImage];
         
         NSURL *url = [NSURL URLWithString:stringImageURL];
-        [imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
-       // NSLog(@"\n \n url = \n %@",url);
         
         dispatch_sync(dispatch_get_main_queue(), ^{
             // --- Setting image -----//
-    
-            UIImage *oldImage = imageView.image;
-            UIImage *newImage;
-            CGSize newSize = imageView.frame.size;
-            // newImage = [oldImage imageScaledToFitSize:newSize]; // uses MGImageResizeScale
-            //newImage = [oldImage imageCroppedToFitSize:newSize]; // uses MGImageResizeCrop
-            newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
-            //newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropEnd];
-            imageView.image = newImage;
+            [imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
+ 
             
         });
     });
@@ -282,7 +273,7 @@
 // 1
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize cellSize = CGSizeMake(300, 200);
+    CGSize cellSize = CGSizeMake(300, 290);
     return cellSize;
 }
 
@@ -290,7 +281,7 @@
 - (UIEdgeInsets)collectionView:
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(10, 10, 20, 10);
+    return UIEdgeInsetsMake(10, 10, 30, 10);
 }
 
 #pragma mark - Helper Methods

@@ -9,13 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "NewsViewController.h"
 #import "NewsStory.h"
+#import "NSString+HTML.h"
+#import "UIImageView+WebCache.h"
+#import "MKAnnotationView+WebCache.h"
 
-@interface ArticleViewController : UIViewController <UITextViewDelegate>
+
+@interface ArticleViewController : UIViewController <UITextViewDelegate, UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *articleImage;
 @property (weak, nonatomic) IBOutlet UILabel *articleHeadline;
-@property (weak, nonatomic) IBOutlet UITextView *articleText;
 
+
+@property (weak, nonatomic) IBOutlet UIWebView *textInWebView;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) NewsStory *newsStory;
 
 -(IBAction)exitView:(id)sender;

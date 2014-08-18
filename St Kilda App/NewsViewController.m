@@ -8,6 +8,7 @@
 
 #import "NewsViewController.h"
 #import "ArticleViewController.h"
+
 #import "TBXML.h"
 #import "ArticleCell.h"
 #import "NSString+HTML.h"
@@ -19,12 +20,17 @@
 
 @interface NewsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 {
-
+    NSURL * myUrl;
+    NSData * myData;
 }
 @end
 
 
 @implementation NewsViewController
+{
+    NSOperationQueue * _queue;
+    NSMutableDictionary * _cellDict;
+}
 
 
 -(void) viewWillAppear:(BOOL)animated
@@ -39,40 +45,26 @@
     [self setNeedsStatusBarAppearanceUpdate];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
     self.collectionView.backgroundColor = [UIColor whiteColor];
-    
     RSSFeedArray=[[NSMutableArray alloc] init];
     tableDataArray=[[NSMutableArray alloc] init];
-    
-    //--- Progress Indicator ----//
-
-    
+  
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
         
         //[self performSelector: @selector(loadNews)];
-        
         [self loadNews];
         
         dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.collectionView reloadData];
-        //[self loadNews];
+            [self.collectionView reloadData];
             
         });
     });
-    
-    //FIND FONTS
-//    for (NSString* family in [UIFont familyNames])
-//    {
-//        NSLog(@"%@", family);
-//        
-//        for (NSString* name in [UIFont fontNamesForFamilyName: family])
-//        {
-//            NSLog(@"  %@", name);
-//        }
-//    }
-    
 }
 
+-(void) viewDidAppear:(BOOL)animated
+{
+  // Remember to cancel queued operations here, as well.
+}
 
 #pragma mark - Getting Data
 
@@ -80,12 +72,18 @@
 {
   //  [RSSFeedArray removeAllObjects];
  //   feedTable.userInteractionEnabled=FALSE;
+
     
-    NSURL *myUrl = [NSURL URLWithString:@"http://stkildanews.com/?cat=17&feed=rss2"];
-    NSData *myData = [NSData dataWithContentsOfURL:myUrl];
+    receivedData = [[NSMutableData alloc]init];
+
+    link = @"http://stkildanews.com/?cat=17&feed=rss2";
+    myUrl = [NSURL URLWithString:link];
+    myData = [NSData dataWithContentsOfURL:myUrl];
+    
     TBXML *sourceXML = [[TBXML alloc] initWithXMLData:myData error:nil];
     
     TBXMLElement *rootelement = sourceXML.rootXMLElement; //Geting the root node
+    
     if(rootelement)
     {
         TBXMLElement *channelElement = [TBXML childElementNamed:@"channel" parentElement:rootelement];
@@ -108,8 +106,9 @@
             TBXMLElement *commentsElement = [TBXML childElementNamed:@"comments" parentElement:itemElement];
             feed.comments=[TBXML textForElement:commentsElement];
             
-            TBXMLElement *descriptionElement = [TBXML childElementNamed:@"description1" parentElement:itemElement];
-            if (descriptionElement) {
+            TBXMLElement *descriptionElement = [TBXML childElementNamed:@"content:encoded" parentElement:itemElement];
+            if (descriptionElement)
+            {
                 feed.descriptionText=[TBXML textForElement:descriptionElement];
             }
             
@@ -134,14 +133,14 @@
         }
     }
     else
-      //  [self performSegueWithIdentifier:@"noData" sender:self];
+    
+      //[self performSegueWithIdentifier:@"noData" sender:self];
         [UIApplication sharedApplication].networkActivityIndicatorVisible=FALSE;
-    
-    
-    tableDataArray=[NSMutableArray arrayWithArray:RSSFeedArray];
-    
-    [self.collectionView reloadData];
+        tableDataArray=[NSMutableArray arrayWithArray:RSSFeedArray];
+        [self.collectionView reloadData];
 }
+
+
 
 #pragma mark - UICollectionView Datasource
 //-1
@@ -172,35 +171,36 @@
 
     headline.topInset = 2;
     headline.leftInset = 5;
-    headline.bottomInset = 3;
+    headline.bottomInset = 2;
     headline.rightInset = 5;
-    headline.text = [str stringByDecodingHTMLEntities];
+    
     [headline setLineBreakMode:NSLineBreakByWordWrapping];
-    headline.numberOfLines = 0;
-    [headline sizeToFit];
-    headline.backgroundColor = [UIColor  colorWithWhite:1 alpha:0.92];
+   // headline.numberOfLines = 0;
+    //[headline sizeToFit];
+    headline.backgroundColor = [UIColor  colorWithWhite:1 alpha:0.91];
+    headline.text = [str stringByDecodingHTMLEntities];
     
     UIImageView *imageView=(UIImageView *)[cell viewWithTag:2];
+    
     dispatch_async(queue, ^{
         
-        [imageView setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
+        imageView.clipsToBounds = YES;
+        imageView.backgroundColor = [UIColor lightGrayColor];
+        
+        // --- Resizing Image -----//
+        UIImage *oldImage = imageView.image;
+        UIImage *newImage;
+        CGSize newSize = imageView.frame.size;
+        // newImage = [oldImage imageScaledToFitSize:newSize]; // uses MGImageResizeScale
+        // newImage = [oldImage imageCroppedToFitSize:newSize]; // uses MGImageResizeCrop
+        // newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
+        newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropEnd];
+        imageView.image = newImage;
         
         dispatch_sync(dispatch_get_main_queue(), ^{
             
-            // --- Setting image -----//
+            [imageView setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
             
-            imageView.clipsToBounds = YES;
-            imageView.backgroundColor = [UIColor lightGrayColor];
-            
-            // --- Resizing Image -----//
-            UIImage *oldImage = imageView.image;
-            UIImage *newImage;
-            CGSize newSize = imageView.frame.size;
-            // newImage = [oldImage imageScaledToFitSize:newSize]; // uses MGImageResizeScale
-            // newImage = [oldImage imageCroppedToFitSize:newSize]; // uses MGImageResizeCrop
-            // newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
-            newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropEnd];
-            imageView.image = newImage;
         });
     });
     return cell;
@@ -262,11 +262,12 @@
     
         ArticleViewController *AVC = segue.destinationViewController;
         AVC.newsStory=newsStory;
-        //NSLog(@"all of  it: %@", newsStory.story);
+        //NSLog(@"\n \n feed.descriptionText: \n \n %@ ", feed.descriptionText);
+        NSLog(@"newsStory.story: %@", newsStory.story);
     }
+    
 }
 
-#pragma mark -SearchBar  Delegate Methods
 
 
 @end

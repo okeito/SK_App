@@ -38,7 +38,6 @@
                [self getEventsData];
         });
     });
-
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -56,15 +55,14 @@
     
     if(rootElement)
     {
-        arrayOfEvents    = [[NSMutableArray alloc] init];
-       // arrayTableView = [[NSMutableArray alloc] init];
-     // arrayEventsTemp = [[NSArray alloc] init];
+        arrayOfEvents = [[NSMutableArray alloc] init];
+  
         TBXMLElement *channelElement = [TBXML childElementNamed:@"channel" parentElement:rootElement];
         TBXMLElement *eventsElement = [TBXML childElementNamed:@"item" parentElement:channelElement];
         while (eventsElement)
         {
             Event *objectEvents = [[Event alloc]init];
-            arrayOfEventDates     = [[NSMutableArray alloc] init];
+            arrayOfEventDates   = [[NSMutableArray alloc] init];
             
             TBXMLElement *nameElement=[TBXML childElementNamed:@"title" parentElement:eventsElement];
             objectEvents.eventName=[TBXML textForElement:nameElement];
@@ -93,7 +91,6 @@
             TBXMLElement *venueElemenet=[TBXML childElementNamed:@"description1" parentElement:eventsElement];
             objectEvents.eventInformation=[TBXML textForElement:venueElemenet];
             
-            
             //--- Store each parsed event in array ---//
             [arrayOfEvents addObject:objectEvents];
             
@@ -103,10 +100,9 @@
         dictEventsByDate = [[NSMutableDictionary alloc] init];
         NSMutableArray *uniqueDatesArray = [[NSMutableArray alloc]init];
         
-        for (Event *event in arrayOfEvents)
+        for (Event *event in arrayOfEvents) // ---> sorting of the events by date
         {
-            // for each event
-            //check if array of unique dates contains its date, if not ->
+            // for each event check if array of unique dates contains its date, if not ->
             if (![uniqueDatesArray containsObject:event.eventDate])
             {
                 [uniqueDatesArray addObject:event.eventDate]; // add its date to the array
@@ -124,11 +120,12 @@
             }
             else
             {
-                // if we already have some events for this date in dictEventsByDate, add current event to it ( as it has the same date )
+                // if some events exist for date in dictEventsByDate, + current event in (as it has the same date)
                 [eventsForCurrentEventDateArray addObject:event];
             }
+            
         }
-        //NSLog(@"\n dictEventsByDate =  %@",dictEventsByDate);
+        NSLog(@"\n dictEventsByDate =  %@",dictEventsByDate);
         
         keyDates = [[NSArray alloc]initWithArray:uniqueDatesArray];
     }
@@ -139,9 +136,9 @@
 //--1
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSMutableArray *eventdForDateArray = [dictEventsByDate objectForKey:[[dictEventsByDate allKeys] objectAtIndex:section]];
+   
+    NSMutableArray *eventdForDateArray = [dictEventsByDate objectForKey:[keyDates objectAtIndex:section]];
     return [eventdForDateArray count];
-    //return 9;
 }
 
 //--2
@@ -157,41 +154,36 @@
     UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor lightGrayColor];
     
-    Event *objectEvents = [arrayOfEvents objectAtIndex:indexPath.section];
-
+    NSString * date= [keyDates objectAtIndex:indexPath.section];
+    NSArray * arrayOfEventsForDate = [dictEventsByDate objectForKey:date];
+    Event * objectEvent = [arrayOfEventsForDate objectAtIndex:indexPath.row];
+    
+    
     //-- set Title label
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:1];
-    NSString * str = objectEvents.eventName;
-    titleLabel.text = str;
     titleLabel.font = [UIFont fontWithName:@"BebasNeueBold" size:17];
-    /*
-     headline.font = [UIFont fontWithName:@"BebasNeueRegular" size:20];
-     headline.font = [UIFont fontWithName:@"BebasNeue-Thin" size:20];
-     headline.font = [UIFont fontWithName:@"BebasNeueBook" size:20];
-     headline.font = [UIFont fontWithName:@"BebasNeueLight" size:20];
-     */
+    titleLabel.text = objectEvent.eventName;
+    //titleLabel.text = str;
 
      //-- set subText label
     UILabel *timeAndDateLabel = (UILabel *)[cell viewWithTag:2];
-    NSString *appenedDateAndTime = [NSString stringWithFormat:@"%@ @ %@",objectEvents.eventTime,objectEvents.eventInformation];
+    NSString *appenedDateAndTime = [NSString stringWithFormat:@"%@ @ %@",objectEvent.eventTime,objectEvent.eventInformation];
     timeAndDateLabel.text = appenedDateAndTime;
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
+        
+        //--- Resizing Image -----//
+        UIImageView *imageView= (UIImageView *)[cell viewWithTag:3];
+        UIImage *oldImage = imageView.image;
+        UIImage *newImage;
+        CGSize newSize = imageView.frame.size;
+        newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
+        imageView.image = newImage;
+        
         dispatch_sync(dispatch_get_main_queue(), ^{
-            //-- set image  // resizing image
-            UIImageView *imageView= (UIImageView *)[cell viewWithTag:3];
-            [imageView setImageWithURL:[NSURL URLWithString:objectEvents.eventImage] placeholderImage:[UIImage imageNamed:@"SKPEventPlaceholder.png"]];
-            //--- Resizing Image -----//
-            UIImage *oldImage = imageView.image;
-            UIImage *newImage;
-            CGSize newSize = imageView.frame.size;
-            // newImage = [oldImage imageScaledToFitSize:newSize]; // uses MGImageResizeScale
-            //newImage = [oldImage imageCroppedToFitSize:newSize]; // uses MGImageResizeCrop
-            newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
-            //newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropEnd];
-            imageView.image = newImage;
-            
+           
+            [imageView setImageWithURL:[NSURL URLWithString:objectEvent.eventImage] placeholderImage:[UIImage imageNamed:@"SKPEventPlaceholder.png"]];
             });
         });
     return cell;
@@ -267,10 +259,16 @@
     {
         NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
         NSIndexPath *indexPath = [selectedItems firstObject];
-        Event *selectedEvent =[arrayOfEvents objectAtIndex:indexPath.section];
+        
+        
+       NSString * date= [keyDates objectAtIndex:indexPath.section];
+        NSArray * arrayOfEventsForDate = [dictEventsByDate objectForKey:date];
+//        Event * objectEvent = [arrayOfEventsForDate objectAtIndex:indexPath.row];
+//        
+        Event *selectedEvent =[arrayOfEventsForDate objectAtIndex:indexPath.row];
+        
         DetailsOfEventViewController *EvtDets = segue.destinationViewController;
         EvtDets.selectedEvent = selectedEvent;
-        
         EvtDets.hidesBottomBarWhenPushed = YES;
     }
 

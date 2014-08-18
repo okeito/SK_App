@@ -12,12 +12,17 @@
 {
     NSMutableArray *RSSFeedArray;
     NSMutableArray *tableDataArray;
- //   IBOutlet UITableView *feedTable;
+    NSString *link;
     
+   // IBOutlet UITableView *feedTable;
    // IBOutlet UIProgressView *threadProgressView;
     
-    float recievedData;
-    float xpectedTotalSize;
+    UIProgressView *progressView;
+    NSMutableData *receivedData;
+   // UILabel *progressLabel;
+    int totalfilesize;
+    int filesizereceived;
+    float filepercentage;
 }
 
 

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		76078A91199BC8BD00078BB5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76078A90199BC8BD00078BB5 /* MessageUI.framework */; };
+		76078A94199BC8CD00078BB5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76078A92199BC8CD00078BB5 /* AddressBook.framework */; };
+		76078A95199BC8CD00078BB5 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76078A93199BC8CD00078BB5 /* AddressBookUI.framework */; };
 		76089CD718E27189004FC1AB /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76089CD618E27189004FC1AB /* MainStoryboard.storyboard */; };
 		76089CDA18E27A46004FC1AB /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76089CD918E27A46004FC1AB /* NewsViewController.m */; };
 		7610D75F18FA4C090089912C /* BebasNeue_Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7610D75B18FA4C090089912C /* BebasNeue_Book.otf */; };
@@ -74,6 +77,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		76078A90199BC8BD00078BB5 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		76078A92199BC8CD00078BB5 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		76078A93199BC8CD00078BB5 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		76089CD618E27189004FC1AB /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		76089CD818E27A46004FC1AB /* NewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
 		76089CD918E27A46004FC1AB /* NewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
@@ -174,6 +180,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76078A94199BC8CD00078BB5 /* AddressBook.framework in Frameworks */,
+				76078A95199BC8CD00078BB5 /* AddressBookUI.framework in Frameworks */,
+				76078A91199BC8BD00078BB5 /* MessageUI.framework in Frameworks */,
 				76EAE9FF19013D2500E8CBEF /* MapKit.framework in Frameworks */,
 				76B613D618F19556001D8592 /* CoreGraphics.framework in Frameworks */,
 				769C1B20182DEEEC0025E1CB /* Foundation.framework in Frameworks */,
@@ -308,6 +317,9 @@
 		769C1B1E182DEEEC0025E1CB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				76078A92199BC8CD00078BB5 /* AddressBook.framework */,
+				76078A93199BC8CD00078BB5 /* AddressBookUI.framework */,
+				76078A90199BC8BD00078BB5 /* MessageUI.framework */,
 				76EAE9FE19013D2500E8CBEF /* MapKit.framework */,
 				769C1B1F182DEEEC0025E1CB /* Foundation.framework */,
 				769C1B21182DEEEC0025E1CB /* CoreGraphics.framework */,

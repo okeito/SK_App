@@ -11,13 +11,19 @@
 #import "EventsFeedViewController.h"
 #import <MapKit/MapKit.h>
 
-@interface DetailsOfEventViewController : UIViewController
+@interface DetailsOfEventViewController : UIViewController <MKMapViewDelegate>
+
+@property(nonatomic, assign) CLLocationCoordinate2D eventCoordinate;
+
 
 @property (nonatomic, strong) Event * selectedEvent;
 
+@property (weak, nonatomic) IBOutlet UILabel *dateAndTime;
 @property (weak, nonatomic) IBOutlet UILabel *eventTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *imageForEvent;
 @property (weak, nonatomic) IBOutlet UITextView *eventInfo;
+
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 - (IBAction)exitView:(UIButton *)sender;
 

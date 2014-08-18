@@ -17,6 +17,11 @@
 
 @implementation DealDetailsViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -25,7 +30,7 @@
     [self setLabelOutlets];
     [self setImageOutlet];
     //[self.scrollView setContentSize: CGSizeMake(320, 568)];
-    self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
+    //self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,7 +89,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    NSLog( @" \n \n https://github.com/jverdi/JVFloatLabeledTextField");
+   //s NSLog( @" \n \n https://github.com/jverdi/JVFloatLabeledTextField");
 }
 
 
