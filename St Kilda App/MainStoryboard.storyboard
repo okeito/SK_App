@@ -81,11 +81,11 @@
                         <viewControllerLayoutGuide type="bottom" id="aCe-tN-YGP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zO6-O2-81r">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctI-RR-20c">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="1200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="1000" text="Headline" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="dvg-OO-9Qi">
                                         <rect key="frame" x="20" y="271" width="280" height="26"/>
@@ -101,10 +101,10 @@
                                         <rect key="frame" x="138" y="329" width="44" height="1"/>
                                     </imageView>
                                     <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CX6-sO-YQ9">
-                                        <rect key="frame" x="10" y="353" width="300" height="773"/>
+                                        <rect key="frame" x="10" y="353" width="300" height="160"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" priority="750" constant="773" id="8ge-Ba-gxA"/>
+                                            <constraint firstAttribute="height" priority="250" constant="160" id="8ge-Ba-gxA"/>
                                             <constraint firstAttribute="width" constant="300" id="nxa-dC-WZY"/>
                                         </constraints>
                                     </webView>
@@ -126,7 +126,7 @@
                                     <constraint firstItem="CX6-sO-YQ9" firstAttribute="leading" secondItem="ctI-RR-20c" secondAttribute="leading" constant="10" id="I6A-ei-6Xu"/>
                                     <constraint firstAttribute="trailing" secondItem="CX6-sO-YQ9" secondAttribute="trailing" constant="10" id="Ni9-VF-CXV"/>
                                     <constraint firstItem="dvg-OO-9Qi" firstAttribute="top" secondItem="ctI-RR-20c" secondAttribute="top" constant="271" id="PS8-aE-WBc"/>
-                                    <constraint firstAttribute="bottom" secondItem="CX6-sO-YQ9" secondAttribute="bottom" constant="74" id="d8n-M5-F82"/>
+                                    <constraint firstAttribute="bottom" secondItem="CX6-sO-YQ9" secondAttribute="bottom" constant="55" id="d8n-M5-F82"/>
                                     <constraint firstItem="JI2-eS-U0O" firstAttribute="leading" secondItem="ctI-RR-20c" secondAttribute="leading" constant="138" id="kcH-Pf-uVO"/>
                                     <constraint firstAttribute="trailing" secondItem="JI2-eS-U0O" secondAttribute="trailing" constant="138" id="x5Y-aW-eL6"/>
                                 </constraints>
@@ -163,12 +163,12 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="1200"/>
+                    <size key="freeformSize" width="320" height="568"/>
                     <connections>
                         <outlet property="articleHeadline" destination="dvg-OO-9Qi" id="riP-oU-33l"/>
                         <outlet property="articleImage" destination="52Z-Ih-xkP" id="ylz-Fc-Dla"/>
                         <outlet property="scrollView" destination="ctI-RR-20c" id="hMZ-fh-2b5"/>
-                        <outlet property="textInWebView" destination="CX6-sO-YQ9" id="Mox-Kw-arS"/>
+                        <outlet property="webView" destination="CX6-sO-YQ9" id="pmt-cU-DcF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ha0-5T-ZIG" userLabel="First Responder" sceneMemberID="firstResponder"/>

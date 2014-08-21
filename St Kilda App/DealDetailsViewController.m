@@ -68,8 +68,10 @@
 -(void) setImageOutlet
 {
     NSString *stringImageURL=[NSString stringWithFormat:@"http://stkildanews.com/wp-content/plugins/Deals/Images/%@",_selectedDeal.dealImage];
-    NSURL *url = [NSURL URLWithString:stringImageURL];
-    [imageViewDealImage setImageWithURL:url placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
+   // NSURL *url = [NSURL URLWithString:stringImageURL];
+   // [imageViewDealImage setImageWithURL:url placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
+    
+    [imageViewDealImage sd_setImageWithURL:[NSURL URLWithString:stringImageURL] placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
 }
 
 #pragma mark - Navigation

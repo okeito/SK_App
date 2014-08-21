@@ -10,29 +10,29 @@
 	<string>St Kilda</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>AEB184E1-3C91-4001-B821-F81BFCAF641D</key>
+		<key>04420CD1B722B1CE170E283BCA8EC9E21196E1DC</key>
 		<string>https://github.com/okeito/SK_App.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>St Kilda App/St Kilda.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>AEB184E1-3C91-4001-B821-F81BFCAF641D</key>
+		<key>04420CD1B722B1CE170E283BCA8EC9E21196E1DC</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/okeito/SK_App.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>AEB184E1-3C91-4001-B821-F81BFCAF641D</string>
+	<string>04420CD1B722B1CE170E283BCA8EC9E21196E1DC</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>AEB184E1-3C91-4001-B821-F81BFCAF641D</string>
+			<string>04420CD1B722B1CE170E283BCA8EC9E21196E1DC</string>
 			<key>IDESourceControlWCCName</key>
 			<string>SK_App</string>
 		</dict>

@@ -31,13 +31,8 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-               [self getEventsData];
-        });
-    });
+    [self getEventsData];
+  
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -48,6 +43,21 @@
 #pragma mark - Getting Data
 -(void)getEventsData
 {
+    NSOperationQueue *queue = [NSOperationQueue new];
+    
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                            selector:@selector(loadDataWithOperation)
+                                                                              object:nil];
+    
+    /* Add the operation to the queue */
+    [queue addOperation:operation];
+}
+
+
+- (void) loadDataWithOperation
+{
+    
+    
     NSURL *myUrl = [NSURL URLWithString:@"http://stkildanews.com/events_feed/"];
     NSData *myData = [NSData dataWithContentsOfURL:myUrl];
     TBXML *sourceXML = [[TBXML alloc] initWithXMLData:myData error:nil];
@@ -56,7 +66,7 @@
     if(rootElement)
     {
         arrayOfEvents = [[NSMutableArray alloc] init];
-  
+        
         TBXMLElement *channelElement = [TBXML childElementNamed:@"channel" parentElement:rootElement];
         TBXMLElement *eventsElement = [TBXML childElementNamed:@"item" parentElement:channelElement];
         while (eventsElement)
@@ -129,8 +139,11 @@
         
         keyDates = [[NSArray alloc]initWithArray:uniqueDatesArray];
     }
-    [self.collectionView reloadData];
+    
+    [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+
 }
+
 
 #pragma mark - UICollectionView Datasource
 //--1
@@ -183,7 +196,9 @@
         
         dispatch_sync(dispatch_get_main_queue(), ^{
            
-            [imageView setImageWithURL:[NSURL URLWithString:objectEvent.eventImage] placeholderImage:[UIImage imageNamed:@"SKPEventPlaceholder.png"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:objectEvent.eventImage]
+                     placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
+
             });
         });
     return cell;

@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *articleHeadline;
 
 
-@property (weak, nonatomic) IBOutlet UIWebView *textInWebView;
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) NewsStory *newsStory;

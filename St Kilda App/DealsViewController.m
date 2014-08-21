@@ -34,16 +34,9 @@
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
     self.collectionView.backgroundColor = [UIColor whiteColor];
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
-        
-        
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [self performSelector:@selector(getDealsData) withObject:nil afterDelay:0.4];
-        });
-    });
+
+    [self performSelector:@selector(getDealsData) withObject:nil afterDelay:0.4];
+
 }
 
 
@@ -54,6 +47,16 @@
 }
 
 -(void) getDealsData
+{
+    
+    NSOperationQueue * qeue = [NSOperationQueue new];
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadDataWithOperation) object:nil];
+    
+    [qeue addOperation:operation];
+}
+
+
+-(void) loadDataWithOperation
 {
     NSURL *myUrl = [NSURL URLWithString:@"http://stkildanews.com/deals/"];
     NSData *myData = [NSData dataWithContentsOfURL:myUrl];
@@ -73,7 +76,7 @@
             
             if ([stringFeatured isEqualToString:@"1"]) {
                 
-               // NSLog(@"this is a featured deal == %@",stringFeatured);
+                // NSLog(@"this is a featured deal == %@",stringFeatured);
                 
                 Deals *objectDealsFeatured=[[Deals alloc]init];
                 
@@ -121,7 +124,7 @@
                 
                 [featuredDealsArray addObject:objectDealsFeatured];
                 [allDealsArray addObject:objectDealsFeatured];
-            
+                
             }
             else{
                 
@@ -168,14 +171,14 @@
                 // UIImage *imageAllDeal = [self downloadDealImage:stringImageName];
                 
                 objectDealsAll.dealImage = stringImageName;
-
+                
                 [allDealsArray addObject:objectDealsAll];
             }
             
             dealsElement =[TBXML nextSiblingNamed:@"deal" searchFromElement:dealsElement];
         }
     }
- 
+    
     NSArray *sortedArray;
     sortedArray = [featuredDealsArray sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
         NSString *first = [(Deals*)a dealFromDate];
@@ -186,8 +189,9 @@
     NSArray *reversedArray = [[sortedArray reverseObjectEnumerator] allObjects];
     sortedDealsArray = [[NSMutableArray alloc]initWithArray:reversedArray];
     
-    [self.collectionView reloadData];
+    [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
 }
+
 
 #pragma mark - UICollectionView Datasource
 //1
@@ -237,8 +241,7 @@
         
         dispatch_sync(dispatch_get_main_queue(), ^{
             // --- Setting image -----//
-            [imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
- 
+        [imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
             
         });
     });

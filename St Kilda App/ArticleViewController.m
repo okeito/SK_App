@@ -28,102 +28,156 @@
 
 -(void) viewDidLayoutSubviews
 {
-//------ #1  :/
-//    CGRect newBounds = _textInWebView.bounds;
-//    newBounds.size.height =_textInWebView.scrollView.contentSize.height;
-//    NSLog(@" newBounds.size.height = \n %f",newBounds.size.height);
-//    newBounds.size.height = _textInWebView.scrollView.contentSize.height;
-//    _textInWebView.bounds = newBounds;
+    [super viewDidLayoutSubviews];
     
+//------ #1  :/
+//    CGRect newBounds = _webView.bounds;
+//    newBounds.size.height =_webView.scrollView.contentSize.height;
+//    NSLog(@" newBounds.size.height = \n %f",newBounds.size.height);
+//    newBounds.size.height = _webView.scrollView.contentSize.height;
+//    _webView.bounds = newBounds;
+//
  //----- #2 :(
 //    
-//        _textInWebView.frame = CGRectMake(_textInWebView.frame.origin.x, _textInWebView.frame.origin.y, _textInWebView.frame.size.width, _textInWebView.scrollView.contentSize.height);
-//    
-//    CGRect newFrame = _textInWebView.frame;
-//    
-//    [_textInWebView setFrame:newFrame];
+//    _webView.bounds = CGRectMake(_webView.frame.origin.x, _webView.frame.origin.y, _webView.frame.size.width, _webView.scrollView.contentSize.height);
+//    CGRect newFrame = _webView.frame;
+//    [_webView setFrame:newFrame];
     
-    //------ #3
-//    CGRect newFrame = _textInWebView.frame;
-//    newFrame.size = CGSizeMake(self.textInWebView.frame.size.width, self.textInWebView.frame.origin.y);
-//    [_textInWebView setFrame:newFrame];
     
- 
+//    _webView.bounds = _webView.frame;
     
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.textInWebView.delegate = self;
+    
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.webView.delegate = self;
     
 //----set headline ----
-    [_articleImage setImageWithURL:[NSURL URLWithString:_newsStory.image] placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
+    [_articleImage sd_setImageWithURL:[NSURL URLWithString:_newsStory.image] placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
     _articleHeadline.font = [UIFont fontWithName:@"BebasNeueBold" size:25];
     _articleHeadline.text = [_newsStory.headline stringByDecodingHTMLEntities];
 
+//---- DO WEBVIEW IN CODE
+//    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 360, 300, 300)];
+
     
- //   NSString *rawText = self.newsStory.story;
     NSString* htmlContentString = [NSString stringWithFormat:@"<html><head></head><body><p> %@ </p></body></html>", self.newsStory.story];
-    
-    
-    [_textInWebView loadHTMLString:htmlContentString baseURL:nil];
-    
+    [_webView loadHTMLString:htmlContentString baseURL:nil];
+    [[[_webView subviews] lastObject] setScrollEnabled:NO];
+//  [self.view addSubview:_webView];
 }
 
 #pragma mark -
 #pragma mark UIWebViewDelegate methods
-
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    CGRect frame = webView.frame;
+    
+    frame.size.height = 5.0f;
+    
+    webView.frame = frame;
+}
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSLog(@" _textInWebView.scrollView.contentSize.height = \n %f",_textInWebView.scrollView.contentSize.height);
+//       _webView.frame = CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, [_webView sizeThatFits:CGSizeZero].height);
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    NSLog(@"\n _webView.scrollView.contentSize.height = \n %f", _webView.scrollView.contentSize.height);
    
-//    CGRect newFrame = _textInWebView.frame;
-//    newFrame.size = CGSizeMake(self.textInWebView.frame.size.width, self.textInWebView.frame.origin.y);
-//    [_textInWebView setFrame:newFrame];
+    int content_height = [[webView stringByEvaluatingJavaScriptFromString: @"document.body.offsetHeight"] integerValue];
     
-//    NSString *webHeight = [_textInWebView stringByEvaluatingJavaScriptFromString:@"document.height;"];
-  //  NSLog(@"WebView Height %@", webHeight);
-  //   float newHeight = [webHeight floatValue];
+    _webView.frame = CGRectMake(_webView.frame.origin.x, _webView.frame.origin.y, _webView.frame.size.width, content_height);
     
-//    CGRect frame = _textInWebView.frame;
-//    frame.size.height = _textInWebView.scrollView.contentSize.height;
-//    _textInWebView.frame = frame;
-//    
- //   CGSize fittingSize = [_textInWebView sizeThatFits:CGSizeZero];
+    
+    CGSize mWebViewTextSize = [webView sizeThatFits:CGSizeMake(1.0f, 1.0f)];  // Pass about any size
+    
+    CGRect mWebViewFrame = webView.frame;
+    
+    
+    mWebViewFrame.size.height = mWebViewTextSize.height;
+    
+    webView.frame = mWebViewFrame;
+    
+    
+    //Disable bouncing in webview
+    for (id subview in webView.subviews)
+    {
+        if ([[subview class] isSubclassOfClass: [UIScrollView class]])
+        {
+            [subview setBounces:NO];
+        }
+    }
+    
+    
+//    CGRect rect = _webView.frame;
+//    rect.size.height = content_height;
+//    _webView.frame = rect;
+    
+    
+//    CGRect frame = _webView.frame;
+//    frame.size.height = _webView.scrollView.contentSize.height;
+//    _webView.frame = frame;
+//
+ //   CGSize fittingSize = [_webView sizeThatFits:CGSizeZero];
   //  frame.size = fittingSize;
- //   _textInWebView.frame = frame;
+ //   _webView.frame = frame;
     
    // NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
-     //  [self.textInWebView sizeToFit];
+     //  [self.webView sizeToFit];
+//
+//    float h;
+//    CGFloat newHeight
+//    h = [[self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollHeight;"] floatValue];
+//    h = _webView.scrollView.contentSize.height;
+   
+//    
+//    float contentHeight = _webView.scrollView.contentSize.height;
+//    CGRect frame = _webView.frame;
+//    frame.size = CGSizeMake(_webView.frame.size.width, contentHeight);
+//    self.webView.frame = frame;
+//
+//    NSString *heightString = [self.webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"];
+//    NSLog(@"web content is %@ high",heightString);
     
-    CGFloat newHeight = [[self.textInWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollHeight;"] floatValue];
+//    _webView.bounds = _webView.frame;
     
-    //float h;
     
-    float contentHeight = _textInWebView.scrollView.contentSize.height;
-    CGRect frame = _textInWebView.frame;
-    frame.size = CGSizeMake(_textInWebView.frame.size.width, contentHeight);
-    self.textInWebView.frame = frame;
-   // h = _textInWebView.scrollView.contentSize.height;
+//    NSString *webHeight = [_webView stringByEvaluatingJavaScriptFromString:@"document.height;"];
+//    float newHeight = [webHeight floatValue];
+//    NSLog(@"WebView Height %f", newHeight);
+//    _webView.frame = CGRectMake(_webView.frame.origin.x, _webView.frame.origin.y, _webView.frame.size.width, newHeight);
+//    _webView.bounds = CGRectMake(_webView.frame.origin.x, _webView.frame.origin.y, _webView.frame.size.width, newHeight);`
 
-    _textInWebView.frame = CGRectMake(_textInWebView.frame.origin.x, _textInWebView.frame.origin.y, _textInWebView.frame.size.width, newHeight);
-    
-    NSString *heightString = [self.textInWebView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"];
-    
-    NSLog(@"web content is %@ high",heightString);
+    [self.scrollView setContentSize:CGSizeMake(320, _webView.scrollView.contentSize.height)];
 
-    
-    //[self.scrollView setContentSize:CGSizeMake(320, h)];
-    
-    
-    //---- NO scolling Mr webView ----
-    [[[_textInWebView subviews] lastObject] setScrollEnabled:NO];
-    
 }
 
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    NSLog(@"Failed to load with error :%@",[error debugDescription]);
+    // report the error inside the webview
+    NSString* errorString = [NSString stringWithFormat:
+                             @"<html><center><font size=+5 color='red'>An error occurred:<br>%@</font></center></html>",
+                             error.localizedDescription];
+    [self.webView loadHTMLString:errorString baseURL:nil];
+    
+}
+- (void)updateViewConstraints
+{
+    [super updateViewConstraints];
+//    UIWebView *webView = [UIView autolayoutView];
+//    NSDictionary *views = NSDictionaryOfVariableBindings(headerView,headline,byline,imageView,button);
+//    NSDictionary *metrics = @{@"width":@300.0,@"height":@300.0};
+//    _webView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [super updateViewConstraints];
+//    [self.webView addConstraint:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[webView]-|"options:NSLayoutFormatAlignAllTop | NSLayoutFormatAlignAllBottom metrics:metrics views:views]];
+}
 
 -(IBAction)readMore:(id)sender
 {

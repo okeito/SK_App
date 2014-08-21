@@ -48,17 +48,11 @@
     RSSFeedArray=[[NSMutableArray alloc] init];
     tableDataArray=[[NSMutableArray alloc] init];
   
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
+    //[self performSelector: @selector(loadNews)];
+    [self loadNews];
         
-        //[self performSelector: @selector(loadNews)];
-        [self loadNews];
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [self.collectionView reloadData];
-            
-        });
-    });
+    //[self.collectionView reloadData];
+    
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -70,12 +64,19 @@
 
 -(void) loadNews
 {
-  //  [RSSFeedArray removeAllObjects];
- //   feedTable.userInteractionEnabled=FALSE;
-
+    NSOperationQueue *queue = [NSOperationQueue new];
     
-    receivedData = [[NSMutableData alloc]init];
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                            selector:@selector(loadDataWithOperation)
+                                                                              object:nil];
+    
+    /* Add the operation to the queue */
+    [queue addOperation:operation];
+}
 
+
+- (void) loadDataWithOperation
+{
     link = @"http://stkildanews.com/?cat=17&feed=rss2";
     myUrl = [NSURL URLWithString:link];
     myData = [NSData dataWithContentsOfURL:myUrl];
@@ -133,13 +134,13 @@
         }
     }
     else
-    
-      //[self performSegueWithIdentifier:@"noData" sender:self];
+        
+        //[self performSegueWithIdentifier:@"noData" sender:self];
         [UIApplication sharedApplication].networkActivityIndicatorVisible=FALSE;
-        tableDataArray=[NSMutableArray arrayWithArray:RSSFeedArray];
-        [self.collectionView reloadData];
-}
+    tableDataArray=[NSMutableArray arrayWithArray:RSSFeedArray];
 
+    [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+}
 
 
 #pragma mark - UICollectionView Datasource
@@ -199,7 +200,7 @@
         
         dispatch_sync(dispatch_get_main_queue(), ^{
             
-            [imageView setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"Placeholder.png"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
             
         });
     });
@@ -264,6 +265,7 @@
         AVC.newsStory=newsStory;
         //NSLog(@"\n \n feed.descriptionText: \n \n %@ ", feed.descriptionText);
         NSLog(@"newsStory.story: %@", newsStory.story);
+    
     }
     
 }

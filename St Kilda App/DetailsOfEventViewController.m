@@ -53,9 +53,8 @@
     self.eventTitle.text = _selectedEvent.eventName;
     self.eventTitle.font= [UIFont fontWithName:@"BebasNeueBold" size:25];
     self.eventInfo.text = _selectedEvent.eventInformation;
-
-    [_imageForEvent setImageWithURL:[NSURL URLWithString:_selectedEvent.eventImage]
-                   placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
+    
+    [_imageForEvent sd_setImageWithURL:[NSURL URLWithString:_selectedEvent.eventImage] placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
     
     MKPointAnnotation*  annotation = [[MKPointAnnotation alloc] init];
     
