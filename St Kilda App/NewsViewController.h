@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString * const WEB_LINK;
+
 @interface NewsViewController : UICollectionViewController
-{
-    NSMutableArray *RSSFeedArray;
-    NSMutableArray *tableDataArray;
-    NSString *link;
-    
+{    
    // IBOutlet UITableView *feedTable;
    // IBOutlet UIProgressView *threadProgressView;
     

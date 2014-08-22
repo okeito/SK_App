@@ -15,6 +15,9 @@
 #import "UIImage+ProportionalFill.h"
 #import "DetailsOfEventViewController.h"
 
+
+NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
+
 @interface EventsFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 {
      TBXML *tbxml;
@@ -58,7 +61,7 @@
 {
     
     
-    NSURL *myUrl = [NSURL URLWithString:@"http://stkildanews.com/events_feed/"];
+    NSURL *myUrl = [NSURL URLWithString:WEB_LINK_EVENTS];
     NSData *myData = [NSData dataWithContentsOfURL:myUrl];
     TBXML *sourceXML = [[TBXML alloc] initWithXMLData:myData error:nil];
     TBXMLElement *rootElement = sourceXML.rootXMLElement;
@@ -135,7 +138,7 @@
             }
             
         }
-        NSLog(@"\n dictEventsByDate =  %@",dictEventsByDate);
+       // NSLog(@"\n dictEventsByDate =  %@",dictEventsByDate);
         
         keyDates = [[NSArray alloc]initWithArray:uniqueDatesArray];
     }
@@ -167,6 +170,7 @@
     UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor lightGrayColor];
     
+    
     NSString * date= [keyDates objectAtIndex:indexPath.section];
     NSArray * arrayOfEventsForDate = [dictEventsByDate objectForKey:date];
     Event * objectEvent = [arrayOfEventsForDate objectAtIndex:indexPath.row];
@@ -183,15 +187,23 @@
     NSString *appenedDateAndTime = [NSString stringWithFormat:@"%@ @ %@",objectEvent.eventTime,objectEvent.eventInformation];
     timeAndDateLabel.text = appenedDateAndTime;
     
+     //-----image placing
+    
+    
+    // request image
+    UIImageView *imageView= (UIImageView *)[cell viewWithTag:3];
+    [imageView setImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
+    
+    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
         
         //--- Resizing Image -----//
-        UIImageView *imageView= (UIImageView *)[cell viewWithTag:3];
+        
         UIImage *oldImage = imageView.image;
         UIImage *newImage;
         CGSize newSize = imageView.frame.size;
-        newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
+        newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCrop];
         imageView.image = newImage;
         
         dispatch_sync(dispatch_get_main_queue(), ^{
@@ -201,6 +213,7 @@
 
             });
         });
+    
     return cell;
 }
 

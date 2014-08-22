@@ -36,6 +36,7 @@
 		76208F7919A58E0700C63106 /* LoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 76208F7819A58E0700C63106 /* LoadOperation.m */; };
 		7620935918EC31F100C45787 /* UICustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7620935818EC31F100C45787 /* UICustomLabel.m */; };
 		7620935D18EC375300C45787 /* NewsStory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7620935C18EC375300C45787 /* NewsStory.m */; };
+		7621EB7019A62AC6005975BB /* UIWebView+Dynamic.m in Sources */ = {isa = PBXBuildFile; fileRef = 7621EB6F19A62AC6005975BB /* UIWebView+Dynamic.m */; };
 		7634A8C518E792C8006D5180 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7634A8C418E792C8006D5180 /* ArticleViewController.m */; };
 		7634A8CB18E7BCC2006D5180 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 7634A8CA18E7BCC2006D5180 /* TBXML.m */; };
 		763E2AC91908116E00754EF3 /* SocialWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763E2AC81908116E00754EF3 /* SocialWebViewController.m */; };
@@ -57,6 +58,7 @@
 		76B613D118EFF317001D8592 /* DealsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B613D018EFF317001D8592 /* DealsViewController.m */; };
 		76B613D618F19556001D8592 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 769C1B21182DEEEC0025E1CB /* CoreGraphics.framework */; };
 		76B613D718F1955B001D8592 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 769C1B21182DEEEC0025E1CB /* CoreGraphics.framework */; };
+		76B7333A19A6146900060782 /* ExtendedWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B7333919A6146900060782 /* ExtendedWebView.m */; };
 		76CB8E4618F2E24800B0BD05 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 76CB8E4518F2E24800B0BD05 /* Event.m */; };
 		76CD201D1909D85000B37925 /* BookingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76CD201C1909D85000B37925 /* BookingViewController.m */; };
 		76EAE9FF19013D2500E8CBEF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76EAE9FE19013D2500E8CBEF /* MapKit.framework */; };
@@ -131,6 +133,8 @@
 		7620935818EC31F100C45787 /* UICustomLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomLabel.m; sourceTree = "<group>"; };
 		7620935B18EC375300C45787 /* NewsStory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsStory.h; sourceTree = "<group>"; };
 		7620935C18EC375300C45787 /* NewsStory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsStory.m; sourceTree = "<group>"; };
+		7621EB6E19A62AC6005975BB /* UIWebView+Dynamic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Dynamic.h"; sourceTree = "<group>"; };
+		7621EB6F19A62AC6005975BB /* UIWebView+Dynamic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Dynamic.m"; sourceTree = "<group>"; };
 		7634A8C318E792C8006D5180 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
 		7634A8C418E792C8006D5180 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
 		7634A8C818E7BC4C006D5180 /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 		76AD05E118E821E0005AB008 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		76B613CF18EFF317001D8592 /* DealsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealsViewController.h; sourceTree = "<group>"; };
 		76B613D018EFF317001D8592 /* DealsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealsViewController.m; sourceTree = "<group>"; };
+		76B7333819A6146900060782 /* ExtendedWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendedWebView.h; sourceTree = "<group>"; };
+		76B7333919A6146900060782 /* ExtendedWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendedWebView.m; sourceTree = "<group>"; };
 		76CB8E4418F2E24800B0BD05 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		76CB8E4518F2E24800B0BD05 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		76CD201B1909D85000B37925 /* BookingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookingViewController.h; sourceTree = "<group>"; };
@@ -267,8 +273,14 @@
 		7620935A18EC320300C45787 /* Subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				76B7333819A6146900060782 /* ExtendedWebView.h */,
+				76B7333919A6146900060782 /* ExtendedWebView.m */,
+				76208F7719A58E0700C63106 /* LoadOperation.h */,
+				76208F7819A58E0700C63106 /* LoadOperation.m */,
 				7620935718EC31F100C45787 /* UICustomLabel.h */,
 				7620935818EC31F100C45787 /* UICustomLabel.m */,
+				7621EB6E19A62AC6005975BB /* UIWebView+Dynamic.h */,
+				7621EB6F19A62AC6005975BB /* UIWebView+Dynamic.m */,
 			);
 			name = Subclasses;
 			sourceTree = "<group>";
@@ -276,6 +288,8 @@
 		7620935E18EC376500C45787 /* Supporting Classes */ = {
 			isa = PBXGroup;
 			children = (
+				76AD05D818E7F761005AB008 /* ArticleCell.h */,
+				76AD05D918E7F761005AB008 /* ArticleCell.m */,
 				7620935B18EC375300C45787 /* NewsStory.h */,
 				7620935C18EC375300C45787 /* NewsStory.m */,
 				7610D76418FA8B470089912C /* RSSFeed.h */,
@@ -291,12 +305,8 @@
 				7620935E18EC376500C45787 /* Supporting Classes */,
 				76089CD818E27A46004FC1AB /* NewsViewController.h */,
 				76089CD918E27A46004FC1AB /* NewsViewController.m */,
-				76AD05D818E7F761005AB008 /* ArticleCell.h */,
-				76AD05D918E7F761005AB008 /* ArticleCell.m */,
 				7634A8C318E792C8006D5180 /* ArticleViewController.h */,
 				7634A8C418E792C8006D5180 /* ArticleViewController.m */,
-				76208F7719A58E0700C63106 /* LoadOperation.h */,
-				76208F7819A58E0700C63106 /* LoadOperation.m */,
 			);
 			name = News;
 			sourceTree = "<group>";
@@ -589,6 +599,7 @@
 				763E2AC91908116E00754EF3 /* SocialWebViewController.m in Sources */,
 				7619171C19A399C00080A3DD /* UIImageView+WebCache.m in Sources */,
 				7634A8C518E792C8006D5180 /* ArticleViewController.m in Sources */,
+				7621EB7019A62AC6005975BB /* UIWebView+Dynamic.m in Sources */,
 				76F0E08218E9A8440087FFA5 /* UIImage+ProportionalFill.m in Sources */,
 				76AD05DA18E7F761005AB008 /* ArticleCell.m in Sources */,
 				7619171B19A399C00080A3DD /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -603,6 +614,7 @@
 				7610D76618FA8B470089912C /* RSSFeed.m in Sources */,
 				769C1B30182DEEEC0025E1CB /* AppDelegate.m in Sources */,
 				76F0E07A18E98FA10087FFA5 /* EventsFeedViewController.m in Sources */,
+				76B7333A19A6146900060782 /* ExtendedWebView.m in Sources */,
 				76208F7919A58E0700C63106 /* LoadOperation.m in Sources */,
 				76F0E07E18E990690087FFA5 /* InfoViewController.m in Sources */,
 				7619170E19A399C00080A3DD /* MKAnnotationView+WebCache.m in Sources */,

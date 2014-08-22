@@ -10,10 +10,10 @@
 
 
 @interface LoadOperation : NSOperation {
-    NSURL *targetURL;
+ //   NSURL *targetURL;
 }
 
 @property(retain) NSURL *targetURL;
-- (id)initWithURL:(NSURL*)url;
+//- (id)initWithURL:(NSURL*)url;
 
 @end

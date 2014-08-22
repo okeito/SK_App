@@ -7,6 +7,7 @@
 //
 
 #import "UICustomLabel.h"
+#import "NewsViewController.h"
 
 @implementation UICustomLabel
 
@@ -27,6 +28,13 @@
     }
     return self;
 }
+
+-(void)setHeadlineLabelText:(NSString *)text
+{
+//    self.Headline.text = text;
+//    self.Headline.font = [UIFont fontWithName:@"BebasNeueBold" size:17];
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

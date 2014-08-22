@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="f0A-Wb-FM0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="f0A-Wb-FM0">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
     </dependencies>
     <scenes>
         <!--News View Controller-->
@@ -29,7 +29,7 @@
                                         <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mmr-iP-9zk">
                                             <rect key="frame" x="0.0" y="0.0" width="145" height="190"/>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="246" verticalHuggingPriority="245" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="131" translatesAutoresizingMaskIntoConstraints="NO" id="dcb-6l-dBa" customClass="UICustomLabel">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="246" verticalHuggingPriority="245" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" restorationIdentifier="Headline" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="131" translatesAutoresizingMaskIntoConstraints="NO" id="dcb-6l-dBa" customClass="UICustomLabel">
                                             <rect key="frame" x="7" y="142" width="131" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="K44-cl-Cb0"/>
@@ -84,14 +84,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctI-RR-20c">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ctI-RR-20c">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="1000" text="Headline" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="dvg-OO-9Qi">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Headline" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="dvg-OO-9Qi">
                                         <rect key="frame" x="20" y="271" width="280" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="280" id="YBE-1z-9ho"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="26" id="bsJ-ap-Fy9"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="26" id="bsJ-ap-Fy9"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -100,15 +100,15 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="divider" translatesAutoresizingMaskIntoConstraints="NO" id="JI2-eS-U0O">
                                         <rect key="frame" x="138" y="329" width="44" height="1"/>
                                     </imageView>
-                                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CX6-sO-YQ9">
-                                        <rect key="frame" x="10" y="353" width="300" height="160"/>
+                                    <webView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CX6-sO-YQ9" customClass="ExtendedWebView">
+                                        <rect key="frame" x="10" y="353" width="300" height="215"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" priority="250" constant="160" id="8ge-Ba-gxA"/>
-                                            <constraint firstAttribute="width" constant="300" id="nxa-dC-WZY"/>
+                                            <constraint firstAttribute="width" constant="300" id="ijb-wN-qoB"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="250" constant="100" id="uDy-wp-Rh3"/>
                                         </constraints>
                                     </webView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="52Z-Ih-xkP">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52Z-Ih-xkP">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="236"/>
                                         <color key="backgroundColor" red="1" green="0.3921568627" blue="0.0039215686269999999" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
@@ -119,14 +119,13 @@
                                 <constraints>
                                     <constraint firstItem="52Z-Ih-xkP" firstAttribute="leading" secondItem="ctI-RR-20c" secondAttribute="leading" id="26j-dg-WNx"/>
                                     <constraint firstItem="JI2-eS-U0O" firstAttribute="top" secondItem="dvg-OO-9Qi" secondAttribute="bottom" constant="32" id="2Vk-wN-t2K"/>
-                                    <constraint firstItem="CX6-sO-YQ9" firstAttribute="top" secondItem="JI2-eS-U0O" secondAttribute="bottom" constant="23" id="3Hu-ul-GDx"/>
                                     <constraint firstAttribute="trailing" secondItem="52Z-Ih-xkP" secondAttribute="trailing" id="6XC-Ed-qcs"/>
                                     <constraint firstItem="dvg-OO-9Qi" firstAttribute="top" secondItem="52Z-Ih-xkP" secondAttribute="bottom" constant="35" id="9F6-oU-sA1"/>
+                                    <constraint firstItem="CX6-sO-YQ9" firstAttribute="leading" secondItem="ctI-RR-20c" secondAttribute="leading" constant="10" id="A0o-8y-7qb"/>
                                     <constraint firstItem="dvg-OO-9Qi" firstAttribute="leading" secondItem="ctI-RR-20c" secondAttribute="leading" constant="20" symbolic="YES" id="CsJ-ZR-f1c"/>
-                                    <constraint firstItem="CX6-sO-YQ9" firstAttribute="leading" secondItem="ctI-RR-20c" secondAttribute="leading" constant="10" id="I6A-ei-6Xu"/>
-                                    <constraint firstAttribute="trailing" secondItem="CX6-sO-YQ9" secondAttribute="trailing" constant="10" id="Ni9-VF-CXV"/>
+                                    <constraint firstItem="CX6-sO-YQ9" firstAttribute="top" secondItem="JI2-eS-U0O" secondAttribute="bottom" constant="23" id="Glj-vq-oBL"/>
                                     <constraint firstItem="dvg-OO-9Qi" firstAttribute="top" secondItem="ctI-RR-20c" secondAttribute="top" constant="271" id="PS8-aE-WBc"/>
-                                    <constraint firstAttribute="bottom" secondItem="CX6-sO-YQ9" secondAttribute="bottom" constant="55" id="d8n-M5-F82"/>
+                                    <constraint firstAttribute="trailing" secondItem="CX6-sO-YQ9" secondAttribute="trailing" constant="10" id="UFb-R8-Riq"/>
                                     <constraint firstItem="JI2-eS-U0O" firstAttribute="leading" secondItem="ctI-RR-20c" secondAttribute="leading" constant="138" id="kcH-Pf-uVO"/>
                                     <constraint firstAttribute="trailing" secondItem="JI2-eS-U0O" secondAttribute="trailing" constant="138" id="x5Y-aW-eL6"/>
                                 </constraints>
@@ -150,11 +149,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="7kv-u9-kjd" firstAttribute="leading" secondItem="zO6-O2-81r" secondAttribute="leading" constant="10" id="9gj-m1-xkm"/>
+                            <constraint firstItem="aCe-tN-YGP" firstAttribute="top" secondItem="CX6-sO-YQ9" secondAttribute="bottom" id="BxL-KY-FnZ"/>
                             <constraint firstAttribute="bottom" secondItem="ctI-RR-20c" secondAttribute="bottom" id="hOQ-Ca-BtO"/>
                             <constraint firstItem="ctI-RR-20c" firstAttribute="leading" secondItem="zO6-O2-81r" secondAttribute="leading" id="jY5-B4-9cx"/>
                             <constraint firstAttribute="trailing" secondItem="ctI-RR-20c" secondAttribute="trailing" id="rLs-9u-iBk"/>
                             <constraint firstItem="ctI-RR-20c" firstAttribute="top" secondItem="zO6-O2-81r" secondAttribute="top" id="sHT-JJ-ROo"/>
-                            <constraint firstItem="52Z-Ih-xkP" firstAttribute="top" secondItem="urG-nC-rU8" secondAttribute="bottom" constant="-20" id="wIw-D1-kZl"/>
+                            <constraint firstItem="52Z-Ih-xkP" firstAttribute="top" relation="lessThanOrEqual" secondItem="urG-nC-rU8" secondAttribute="bottom" priority="750" constant="-20" id="wIw-D1-kZl"/>
                             <constraint firstItem="7kv-u9-kjd" firstAttribute="top" secondItem="urG-nC-rU8" secondAttribute="bottom" constant="10" id="zox-OZ-TnQ"/>
                         </constraints>
                     </view>

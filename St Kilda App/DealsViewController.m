@@ -8,15 +8,21 @@
 
 #import "DealsViewController.h"
 #import "Deals.h"
+#import "DealDetailsViewController.h"
+
+#import "UIImageView+WebCache.h"
+#import "SDWebImage/UIImageView+WebCache.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+ProportionalFill.h"
-#import "DealDetailsViewController.h"
+
+NSString * const WEB_LINK_DEAL = @"http://stkildanews.com/deals/";
+NSString * const IMG_BASE_URL = @"http://stkildanews.com/wp-content/plugins/Deals/Images/%@";
+
 
 @interface DealsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 {
     TBXML *tbxml;
 }
-
 @end
 
 @implementation DealsViewController
@@ -36,7 +42,6 @@
     self.collectionView.backgroundColor = [UIColor whiteColor];
 
     [self performSelector:@selector(getDealsData) withObject:nil afterDelay:0.4];
-
 }
 
 
@@ -49,16 +54,16 @@
 -(void) getDealsData
 {
     
-    NSOperationQueue * qeue = [NSOperationQueue new];
+    NSOperationQueue * qeueu = [NSOperationQueue new];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadDataWithOperation) object:nil];
     
-    [qeue addOperation:operation];
+    [qeueu addOperation:operation];
 }
 
 
 -(void) loadDataWithOperation
 {
-    NSURL *myUrl = [NSURL URLWithString:@"http://stkildanews.com/deals/"];
+    NSURL *myUrl = [NSURL URLWithString:WEB_LINK_DEAL];
     NSData *myData = [NSData dataWithContentsOfURL:myUrl];
     TBXML *sourceXML = [[TBXML alloc] initWithXMLData:myData error:nil];
     TBXMLElement *rootElement = sourceXML.rootXMLElement;
@@ -210,7 +215,12 @@
 - (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"aDealCell" forIndexPath:indexPath];
+    if (cell == nil)
+    {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"aDealCell" forIndexPath:indexPath];
+    }
     cell.backgroundColor = [UIColor whiteColor];
+    
     
     Deals *objectDeals=[sortedDealsArray objectAtIndex:indexPath.row];
    
@@ -224,18 +234,18 @@
     priceLabel.font = [UIFont fontWithName:@"BebasNeueBold" size:28];
     priceLabel.text = [NSString stringWithFormat:@"$%@", objectDeals.dealPrice];
     
-
+    UIImageView *imageView=(UIImageView *)[cell viewWithTag:3];
+    imageView.image = nil;
+    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
         
-        UIImageView *imageView=(UIImageView *)[cell viewWithTag:3];
         UIImage *oldImage = imageView.image;
         UIImage *newImage;
         CGSize newSize = imageView.frame.size;
         newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
         imageView.image = newImage;
-        NSString *stringImageURL=[NSString stringWithFormat:
-                                  @"http://stkildanews.com/wp-content/plugins/Deals/Images/%@",objectDeals.dealImage];
+        NSString *stringImageURL=[NSString stringWithFormat:IMG_BASE_URL ,objectDeals.dealImage];
         
         NSURL *url = [NSURL URLWithString:stringImageURL];
         
@@ -263,8 +273,8 @@
     // TODO: Select Item
     [self performSegueWithIdentifier:@"showDealDetails" sender:self];
     [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
-    
 }
+
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // TODO: Deselect item
@@ -304,7 +314,6 @@
         DealDetailsViewController *dealDetails = segue.destinationViewController;
         dealDetails.selectedDeal = selectedDeal;
     }
-
 }
 
 @end

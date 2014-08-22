@@ -9,8 +9,8 @@
 #import "NewsViewController.h"
 #import "ArticleViewController.h"
 
-#import "TBXML.h"
 #import "ArticleCell.h"
+#import "TBXML.h"
 #import "NSString+HTML.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+ProportionalFill.h"
@@ -18,12 +18,18 @@
 #import "RSSFeed.h"
 
 
+NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
+
 @interface NewsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 {
     NSURL * myUrl;
     NSData * myData;
+    TBXML *sourceXML;
+    NSMutableArray *tableDataArray;
+        NSMutableArray *RSSFeedArray;
 }
 @end
+
 
 
 @implementation NewsViewController
@@ -43,11 +49,12 @@
 {
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     RSSFeedArray=[[NSMutableArray alloc] init];
-    tableDataArray=[[NSMutableArray alloc] init];
-  
+    
+    //tableDataArray=[[NSMutableArray alloc] init];
     //[self performSelector: @selector(loadNews)];
     [self loadNews];
         
@@ -68,7 +75,7 @@
     
     NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
                                                                             selector:@selector(loadDataWithOperation)
-                                                                              object:nil];
+                                                                            object:nil];
     
     /* Add the operation to the queue */
     [queue addOperation:operation];
@@ -77,12 +84,16 @@
 
 - (void) loadDataWithOperation
 {
-    link = @"http://stkildanews.com/?cat=17&feed=rss2";
-    myUrl = [NSURL URLWithString:link];
+    
+    myUrl = [NSURL URLWithString:WEB_LINK];
     myData = [NSData dataWithContentsOfURL:myUrl];
-    
-    TBXML *sourceXML = [[TBXML alloc] initWithXMLData:myData error:nil];
-    
+    [self parseXML:myData];
+}
+
+
+-(void)parseXML:(NSData*) Data
+{
+    sourceXML = [[TBXML alloc] initWithXMLData:myData error:nil];
     TBXMLElement *rootelement = sourceXML.rootXMLElement; //Geting the root node
     
     if(rootelement)
@@ -135,11 +146,13 @@
     }
     else
         
-        //[self performSegueWithIdentifier:@"noData" sender:self];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible=FALSE;
+    //[self performSegueWithIdentifier:@"noData" sender:self];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible=FALSE;
     tableDataArray=[NSMutableArray arrayWithArray:RSSFeedArray];
-
+    
     [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
 }
 
 
@@ -162,29 +175,23 @@
     UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"article" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor darkGrayColor];
 
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     RSSFeed *feed=[tableDataArray objectAtIndex:indexPath.row];
 
     //---- Set label title ------
     NSString *str = feed.title;
     UICustomLabel *headline = (UICustomLabel *)[cell viewWithTag:1];
-    headline.font = [UIFont fontWithName:@"BebasNeueBold" size:16];
+    headline.font = [UIFont fontWithName:@"BebasNeueBold" size:17];
 
     headline.topInset = 2;
     headline.leftInset = 5;
     headline.bottomInset = 2;
     headline.rightInset = 5;
-    
     [headline setLineBreakMode:NSLineBreakByWordWrapping];
-   // headline.numberOfLines = 0;
-    //[headline sizeToFit];
     headline.backgroundColor = [UIColor  colorWithWhite:1 alpha:0.91];
     headline.text = [str stringByDecodingHTMLEntities];
     
     UIImageView *imageView=(UIImageView *)[cell viewWithTag:2];
     
-    dispatch_async(queue, ^{
-        
         imageView.clipsToBounds = YES;
         imageView.backgroundColor = [UIColor lightGrayColor];
         
@@ -198,12 +205,8 @@
         newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropEnd];
         imageView.image = newImage;
         
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            
         [imageView sd_setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
-            
-        });
-    });
+    
     return cell;
 }
 
@@ -265,9 +268,7 @@
         AVC.newsStory=newsStory;
         //NSLog(@"\n \n feed.descriptionText: \n \n %@ ", feed.descriptionText);
         NSLog(@"newsStory.story: %@", newsStory.story);
-    
     }
-    
 }
 
 

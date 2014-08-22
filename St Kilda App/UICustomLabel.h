@@ -23,5 +23,7 @@
 @property (nonatomic) CGFloat rightInset;
 
 
+-(void)setHeadlineLabelText:(NSString *)text;
+
 
 @end

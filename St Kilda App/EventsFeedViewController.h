@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "TBXML.h"
 
+extern NSString * const WEB_LINK_EVENTS;
+
 @interface EventsFeedViewController : UICollectionViewController
 {
     NSArray *keyDates;
