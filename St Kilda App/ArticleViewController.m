@@ -45,10 +45,8 @@
 //    _webView.bounds = CGRectMake(_webView.frame.origin.x, _webView.frame.origin.y, _webView.frame.size.width, _webView.scrollView.contentSize.height);
 //    CGRect newFrame = _webView.frame;
 //    [_webView setFrame:newFrame];
-    
-    
+
 //    _webView.bounds = _webView.frame;
-    
 }
 
 - (void)viewDidLoad
@@ -136,16 +134,7 @@ float newheight = [[webView stringByEvaluatingJavaScriptFromString: @"document.b
     [self.webView loadHTMLString:errorString baseURL:nil];
     
 }
-- (void)updateViewConstraints
-{
-    [super updateViewConstraints];
-//    UIWebView *webView = [UIView autolayoutView];
-//    NSDictionary *views = NSDictionaryOfVariableBindings(headerView,headline,byline,imageView,button);
-//    NSDictionary *metrics = @{@"width":@300.0,@"height":@300.0};
-//    _webView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [super updateViewConstraints];
-//    [self.webView addConstraint:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[webView]-|"options:NSLayoutFormatAlignAllTop | NSLayoutFormatAlignAllBottom metrics:metrics views:views]];
-}
+
 
 -(IBAction)readMore:(id)sender
 {

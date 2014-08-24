@@ -22,6 +22,7 @@ NSString * const IMG_BASE_URL = @"http://stkildanews.com/wp-content/plugins/Deal
 @interface DealsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 {
     TBXML *tbxml;
+    UIActivityIndicatorView * activityView;
 }
 @end
 
@@ -40,6 +41,11 @@ NSString * const IMG_BASE_URL = @"http://stkildanews.com/wp-content/plugins/Deal
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
     self.collectionView.backgroundColor = [UIColor whiteColor];
+    
+    activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityView.center=self.view.center;
+    [activityView startAnimating];
+    [self.view addSubview:activityView];
 
     [self performSelector:@selector(getDealsData) withObject:nil afterDelay:0.4];
 }
@@ -221,6 +227,8 @@ NSString * const IMG_BASE_URL = @"http://stkildanews.com/wp-content/plugins/Deal
     }
     cell.backgroundColor = [UIColor whiteColor];
     
+    [activityView stopAnimating];
+    [activityView removeFromSuperview];
     
     Deals *objectDeals=[sortedDealsArray objectAtIndex:indexPath.row];
    

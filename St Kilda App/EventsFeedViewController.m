@@ -21,6 +21,7 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
 @interface EventsFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 {
      TBXML *tbxml;
+    UIActivityIndicatorView * activityView;
 }
 
 @end
@@ -30,9 +31,13 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
- 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
     self.collectionView.backgroundColor = [UIColor whiteColor];
+    
+    activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityView.center=self.view.center;
+    [activityView startAnimating];
+    [self.view addSubview:activityView];
     
     [self getEventsData];
   
@@ -223,6 +228,9 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
  {
      EventsHeaderView *dateHeaderView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                           UICollectionElementKindSectionHeader withReuseIdentifier:@"dateHeader" forIndexPath:indexPath];
+     
+     [activityView stopAnimating];
+     [activityView removeFromSuperview];
 
      NSString *strDate = [keyDates objectAtIndex:indexPath.section];
     //NSLog(@"\n strDate = %@ \n from \n (keyDates)= %@", strDate, keyDates);

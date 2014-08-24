@@ -26,7 +26,8 @@ NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
     NSData * myData;
     TBXML *sourceXML;
     NSMutableArray *tableDataArray;
-        NSMutableArray *RSSFeedArray;
+    NSMutableArray *RSSFeedArray;
+    UIActivityIndicatorView *activityView;
 }
 @end
 
@@ -42,12 +43,19 @@ NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
 -(void) viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+
+    
 }
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityView.center=self.view.center;
+    [activityView startAnimating];
+    [self.view addSubview:activityView];
+    
     [self setNeedsStatusBarAppearanceUpdate];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
@@ -145,14 +153,12 @@ NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
         }
     }
     else
-        
+    
     //[self performSegueWithIdentifier:@"noData" sender:self];
     [UIApplication sharedApplication].networkActivityIndicatorVisible=FALSE;
     tableDataArray=[NSMutableArray arrayWithArray:RSSFeedArray];
-    
     [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-
 }
 
 
@@ -175,6 +181,9 @@ NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
     UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"article" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor darkGrayColor];
 
+    [activityView stopAnimating];
+    [activityView removeFromSuperview];
+    
     RSSFeed *feed=[tableDataArray objectAtIndex:indexPath.row];
 
     //---- Set label title ------

@@ -11,7 +11,7 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface BookingViewController : UIViewController <MFMailComposeViewControllerDelegate, UITextFieldDelegate>
+@interface BookingViewController : UIViewController <MFMailComposeViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
@@ -20,6 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *SubmitBookingBTN;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 - (IBAction)backAction:(UIButton *)sender;
 
 @end
