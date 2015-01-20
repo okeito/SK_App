@@ -14,7 +14,7 @@
 		<string>https://github.com/okeito/SK_App.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>St Kilda App/St Kilda.xcodeproj/project.xcworkspace</string>
+	<string>St Kilda App/St Kilda.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>04420CD1B722B1CE170E283BCA8EC9E21196E1DC</key>

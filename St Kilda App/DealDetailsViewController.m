@@ -10,8 +10,12 @@
 #import "UIImageView+WebCache.h"
 #import "SocialWebViewController.h"
 
+#import "GAIDictionaryBuilder.h"
+
 
 @interface DealDetailsViewController ()
+
+@property (strong, nonatomic) IBOutlet UIButton *backBTN;
 
 @end
 
@@ -22,11 +26,19 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"DetailsOfDeal"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-
+    self.scrollView.delegate = self;
     [self setLabelOutlets];
     [self setImageOutlet];
     //[self.scrollView setContentSize: CGSizeMake(320, 568)];
@@ -81,10 +93,35 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(IBAction)bookDeal:(id)sende
+-(IBAction)bookDeal:(id)sender
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker set:kGAIScreenName value:@"DetailsOfDeal"];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
+                                                          action:@"touch"
+                                                           label:[_bookDealBTN.titleLabel text]
+                                                           value:nil] build]];
+    [tracker set:kGAIScreenName value:nil];
+    
     [self performSegueWithIdentifier:@"bookDeal" sender:self];
+    
+    
 }
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate methods
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    _backBTN.alpha = 0;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    _backBTN.alpha = 1;
+}
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

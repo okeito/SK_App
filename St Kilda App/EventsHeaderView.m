@@ -25,7 +25,7 @@
 -(void)setDateLabelText:(NSString *)text
 {
     self.dateLabel.text = text;
-    self.dateLabel.font = [UIFont fontWithName:@"BebasNeueBold" size:18];
+    self.dateLabel.font = [UIFont fontWithName:@"BebasNeueBold" size:19];
 }
 
 

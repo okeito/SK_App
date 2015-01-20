@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSString * image; // accompanying imge
 @property (nonatomic, strong) NSString * headline; //title of articl/story
 @property (nonatomic, strong) NSString * story; //actual body copy of article/story
+@property (nonatomic, strong)  NSString * link;
 
 @end

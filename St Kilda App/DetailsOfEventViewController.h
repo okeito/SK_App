@@ -11,7 +11,7 @@
 #import "EventsFeedViewController.h"
 #import <MapKit/MapKit.h>
 
-@interface DetailsOfEventViewController : UIViewController <MKMapViewDelegate>
+@interface DetailsOfEventViewController : UIViewController <MKMapViewDelegate, UIScrollViewDelegate>
 
 @property(nonatomic, assign) CLLocationCoordinate2D eventCoordinate;
 
@@ -24,6 +24,9 @@
 @property (weak, nonatomic) IBOutlet UITextView *eventInfo;
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+
 
 - (IBAction)exitView:(UIButton *)sender;
 

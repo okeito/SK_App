@@ -16,6 +16,7 @@
 #import "UIImage+ProportionalFill.h"
 #import "UICustomLabel.h"
 #import "RSSFeed.h"
+#import "ArticleHTMLParser.h"
 
 
 NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
@@ -44,30 +45,26 @@ NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 
-    
 }
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"NewsViewFeed";
+    
     activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityView.center=self.view.center;
     [activityView startAnimating];
     [self.view addSubview:activityView];
-    
+    self->collectionView.delegate = self;
     [self setNeedsStatusBarAppearanceUpdate];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self->collectionView.backgroundColor = [UIColor whiteColor];
     RSSFeedArray=[[NSMutableArray alloc] init];
     
-    //tableDataArray=[[NSMutableArray alloc] init];
-    //[self performSelector: @selector(loadNews)];
     [self loadNews];
-        
-    //[self.collectionView reloadData];
-    
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -92,7 +89,6 @@ NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
 
 - (void) loadDataWithOperation
 {
-    
     myUrl = [NSURL URLWithString:WEB_LINK];
     myData = [NSData dataWithContentsOfURL:myUrl];
     [self parseXML:myData];
@@ -126,7 +122,7 @@ NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
             TBXMLElement *commentsElement = [TBXML childElementNamed:@"comments" parentElement:itemElement];
             feed.comments=[TBXML textForElement:commentsElement];
             
-            TBXMLElement *descriptionElement = [TBXML childElementNamed:@"content:encoded" parentElement:itemElement];
+            TBXMLElement *descriptionElement = [TBXML childElementNamed:@"description" parentElement:itemElement];
             if (descriptionElement)
             {
                 feed.descriptionText=[TBXML textForElement:descriptionElement];
@@ -157,8 +153,10 @@ NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
     //[self performSegueWithIdentifier:@"noData" sender:self];
     [UIApplication sharedApplication].networkActivityIndicatorVisible=FALSE;
     tableDataArray=[NSMutableArray arrayWithArray:RSSFeedArray];
-    [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+    [self->collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    
 }
 
 
@@ -178,7 +176,7 @@ NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
 //-3
 - (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"article" forIndexPath:indexPath];
+    ArticleCell * cell = [self->collectionView dequeueReusableCellWithReuseIdentifier:@"article" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor darkGrayColor];
 
     [activityView stopAnimating];
@@ -203,21 +201,18 @@ NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
     
         imageView.clipsToBounds = YES;
         imageView.backgroundColor = [UIColor lightGrayColor];
-        
-        // --- Resizing Image -----//
-        UIImage *oldImage = imageView.image;
-        UIImage *newImage;
-        CGSize newSize = imageView.frame.size;
-        // newImage = [oldImage imageScaledToFitSize:newSize]; // uses MGImageResizeScale
-        // newImage = [oldImage imageCroppedToFitSize:newSize]; // uses MGImageResizeCrop
-        // newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropStart];
-        newImage = [oldImage imageToFitSize:newSize method:MGImageResizeCropEnd];
-        imageView.image = newImage;
-        
-        [imageView sd_setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
     
+        
+    [imageView sd_setImageWithURL:[NSURL URLWithString:feed.rssFeedImage] placeholderImage:[UIImage imageNamed:@"stKildaPlaceholder.png"]];
+
     return cell;
 }
+
+- (void)reloadItemsAtIndexPaths:(NSArray *)indexPaths
+{
+    
+}
+
 
 //-- 4
 /*- (UICollectionReusableView *)collectionView:
@@ -232,13 +227,18 @@ NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // TODO: Select Item
+//    ArticleCell * selectedCell = (ArticleCell*)[self->collectionView cellForItemAtIndexPath:indexPath];
+//    selectedCell.alpha = 0.5;
+    
     [self performSegueWithIdentifier:@"viewArticleDetails" sender:self];
-    [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    [self->collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
 }
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // TODO: Deselect item
+//    ArticleCell * selectedCell = (ArticleCell*)[self->collectionView cellForItemAtIndexPath:indexPath];
+//    selectedCell.alpha = 1;
 }
 
 
@@ -262,21 +262,25 @@ NSString *const WEB_LINK = @"http://stkildanews.com/?cat=17&feed=rss2";
 #pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    
     if ([segue.identifier isEqualToString:@"viewArticleDetails"])
     {
-        NSArray *selectedItems = [self.collectionView indexPathsForSelectedItems];
+        NSArray *selectedItems = [self->collectionView indexPathsForSelectedItems];
         NSIndexPath *indexPath = [selectedItems firstObject];
+        
+        [self->collectionView deselectItemAtIndexPath:indexPath animated:YES];
         
         RSSFeed *feed=[tableDataArray objectAtIndex:indexPath.row];
         NewsStory *newsStory = [[NewsStory alloc] init];
         newsStory.image = feed.rssFeedImage;
         newsStory.headline = feed.title;
         newsStory.story = feed.descriptionText;
-    
+        newsStory.link = feed.link;
+        
         ArticleViewController *AVC = segue.destinationViewController;
         AVC.newsStory=newsStory;
-        //NSLog(@"\n \n feed.descriptionText: \n \n %@ ", feed.descriptionText);
-        NSLog(@"newsStory.story: %@", newsStory.story);
+        
+
     }
 }
 

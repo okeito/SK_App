@@ -14,7 +14,7 @@
 #import "MKAnnotationView+WebCache.h"
 
 
-@interface ArticleViewController : UIViewController <UITextViewDelegate, UIWebViewDelegate>
+@interface ArticleViewController : UIViewController <UITextViewDelegate, UIWebViewDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *articleImage;
 @property (weak, nonatomic) IBOutlet UILabel *articleHeadline;
@@ -24,6 +24,8 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) NewsStory *newsStory;
+
+
 
 -(IBAction)exitView:(id)sender;
 -(IBAction)readMore:(id)sender;

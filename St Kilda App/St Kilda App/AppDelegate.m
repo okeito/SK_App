@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LoadOperation.h"
+#import "GAI.h"
 
 
 @implementation AppDelegate
@@ -20,8 +21,16 @@ static NSArray *urlArray;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [[GAI sharedInstance].logger setLogLevel:kGAILogLevelVerbose];
+    [GAI sharedInstance].dispatchInterval = 20;
 
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-40020019-2"];
+    
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+    [tracker set:kGAIAppVersion value:version];
+    [tracker set:kGAISampleRate value:@"50.0"];
+    
     [self customizeControls];
     
     //    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -37,6 +46,8 @@ static NSArray *urlArray;
     [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UITabBar appearance] setSelectedImageTintColor: [UIColor blackColor]];
+    
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

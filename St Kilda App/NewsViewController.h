@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
 extern NSString * const WEB_LINK;
 
-@interface NewsViewController : UICollectionViewController
+@interface NewsViewController : GAITrackedViewController
 {    
    // IBOutlet UITableView *feedTable;
    // IBOutlet UIProgressView *threadProgressView;
     
+    IBOutlet UICollectionView *collectionView;
     UIProgressView *progressView;
     NSMutableData *receivedData;
    // UILabel *progressLabel;

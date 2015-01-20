@@ -15,6 +15,8 @@
 #import "UIImage+ProportionalFill.h"
 #import "DetailsOfEventViewController.h"
 
+#import "GAIDictionaryBuilder.h"
+
 
 NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
 
@@ -22,6 +24,7 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
 {
      TBXML *tbxml;
     UIActivityIndicatorView * activityView;
+    UICollectionViewCell * tempCell;
 }
 
 @end
@@ -33,6 +36,7 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
     [super viewDidLoad];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StKilda_logo.png"]];
     self.collectionView.backgroundColor = [UIColor whiteColor];
+
     
     activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityView.center=self.view.center;
@@ -43,9 +47,18 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
   
 }
 
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"EventsFeed"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
 -(void) viewWillAppear:(BOOL)animated
 {
-       [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    tempCell = nil;
 }
 
 #pragma mark - Getting Data
@@ -64,8 +77,6 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
 
 - (void) loadDataWithOperation
 {
-    
-    
     NSURL *myUrl = [NSURL URLWithString:WEB_LINK_EVENTS];
     NSData *myData = [NSData dataWithContentsOfURL:myUrl];
     TBXML *sourceXML = [[TBXML alloc] initWithXMLData:myData error:nil];
@@ -149,6 +160,7 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
     }
     
     [self.collectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+    
 
 }
 
@@ -165,7 +177,6 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
 //--2
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView
 {
-    //-- return [keyDates count];//change this
     return [[dictEventsByDate allKeys]count];
 }
 
@@ -175,11 +186,9 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
     UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor lightGrayColor];
     
-    
     NSString * date= [keyDates objectAtIndex:indexPath.section];
     NSArray * arrayOfEventsForDate = [dictEventsByDate objectForKey:date];
     Event * objectEvent = [arrayOfEventsForDate objectAtIndex:indexPath.row];
-    
     
     //-- set Title label
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:1];
@@ -191,8 +200,6 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
     UILabel *timeAndDateLabel = (UILabel *)[cell viewWithTag:2];
     NSString *appenedDateAndTime = [NSString stringWithFormat:@"%@ @ %@",objectEvent.eventTime,objectEvent.eventInformation];
     timeAndDateLabel.text = appenedDateAndTime;
-    
-     //-----image placing
     
     
     // request image
@@ -218,7 +225,6 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
 
             });
         });
-    
     return cell;
 }
 
@@ -256,7 +262,11 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // TODO: Select Item
+    tempCell = [collectionView cellForItemAtIndexPath:indexPath];
+    
     [self performSegueWithIdentifier:@"viewEventDetails" sender:self];
+    tempCell.alpha = 0.5;
+
     [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
 }
@@ -277,7 +287,7 @@ NSString * const WEB_LINK_EVENTS = @"http://stkildanews.com/events_feed/";
 // 3
 - (UIEdgeInsets)collectionView:
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(10, 10, 15, 10);
+    return UIEdgeInsetsMake(10, 10, 20, 10);
 }
 
 - (void)didReceiveMemoryWarning

@@ -15,6 +15,8 @@
 #import "UIImageView+WebCache.h"
 #import "UIImage+ProportionalFill.h"
 
+#import "GAIDictionaryBuilder.h"
+
 NSString * const WEB_LINK_DEAL = @"http://stkildanews.com/deals/";
 NSString * const IMG_BASE_URL = @"http://stkildanews.com/wp-content/plugins/Deals/Images/%@";
 
@@ -31,6 +33,14 @@ NSString * const IMG_BASE_URL = @"http://stkildanews.com/wp-content/plugins/Deal
 -(void) viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"DealsFeed"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (void)viewDidLoad

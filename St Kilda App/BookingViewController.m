@@ -8,6 +8,8 @@
 
 #import "BookingViewController.h"
 
+#import "GAIDictionaryBuilder.h"
+
 @interface BookingViewController ()
 {
     UITextField * activeField;
@@ -24,6 +26,14 @@
         // Custom initialization
     }
     return self;
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"BookingDealForm"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -116,6 +126,15 @@
 
 - (IBAction)sendMail
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker set:kGAIScreenName value:@"BookingDealForm"];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"UX"
+                                                          action:@"touch"
+                                                           label:[_SubmitBookingBTN.titleLabel text]
+                                                           value:nil] build]];
+    [tracker set:kGAIScreenName value:nil];
+
     
     if ([MFMailComposeViewController canSendMail])
     {
@@ -135,7 +154,6 @@
         [mailComposer setSubject:@"St Kilda App has a new booking from you!"];
         [mailComposer setMessageBody:emailBody isHTML:NO];
         [self presentViewController:mailComposer animated:YES completion:nil];
-
         //[self presentViewController:mailComposer animated:YES completion:nil];
    }
     else

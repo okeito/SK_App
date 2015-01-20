@@ -9,8 +9,11 @@
 #import "DetailsOfEventViewController.h"
 #import "UIImageView+WebCache.h"
 
+#import "GAIDictionaryBuilder.h"
+
 @interface DetailsOfEventViewController ()
 
+@property (nonatomic) IBOutlet UIButton *backBTN;
 
 @end
 
@@ -19,37 +22,23 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    _backBTN.alpha = 1;
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"EventDetails"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-   // [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
-    // Do any additional setup after loading the view.
-    
-//    NSLog(@"\n \n _selectedEvent.eventName = %@"
-//          @"\n \n _selectedEvent.eventInformation = %@"
-//          @"\n \n _selectedEvent.eventDate = %@"
-//          @"\n \n _selectedEvent.eventTime = %@"
-//          @"\n \n _selectedEvent.eventAddress = %@"
-//          @"\n \n _selectedEvent.eventImageName = %@"
-//          @"\n \n _selectedEvent.eventImage = %@"
-//          @"\n \n _selectedEvent.longt = %@"
-//          @"\n \n _selectedEvent.lang = %@"
-//          ,_selectedEvent.eventName,
-//          _selectedEvent.eventInformation,
-//          _selectedEvent.eventDate,
-//          _selectedEvent.eventTime,
-//          _selectedEvent.eventAddress,
-//          _selectedEvent.eventImageName,
-//          _selectedEvent.eventImage,
-//          _selectedEvent.longt,
-//          _selectedEvent.lang);
+    self.scrollView.delegate = self;
     
     self.dateAndTime.text = [@[_selectedEvent.eventDate, _selectedEvent.eventTime] componentsJoinedByString:@" @ "];
-    
     self.eventTitle.text = _selectedEvent.eventName;
     self.eventTitle.font= [UIFont fontWithName:@"BebasNeueBold" size:25];
     self.eventInfo.text = _selectedEvent.eventInformation;
@@ -63,7 +52,6 @@
     annotation.coordinate = _eventCoordinate;
     [self.mapView addAnnotation:annotation];
     
-
     MKCoordinateRegion region;
     region.center.latitude = _eventCoordinate.latitude;
     region.center.longitude = _eventCoordinate.longitude;
@@ -84,6 +72,19 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate methods
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    _backBTN.alpha = 0;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    _backBTN.alpha = 1;
 }
 
 /*
