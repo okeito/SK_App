@@ -52,8 +52,25 @@
 
     //---- DO WEBVIEW IN CODE
     
-    NSString* htmlContentString = [NSString stringWithFormat:@"<html><head></head><body><p> %@ </p></body></html>", self.newsStory.story];
-    [_webView loadHTMLString:htmlContentString baseURL:nil];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void)
+                   {
+                       // Background work
+                       ArticleHTMLParser *parser = [[ArticleHTMLParser alloc] init];
+                       NSString *article = [parser parseArticleHTML:_newsStory.link];
+                       NSLog(@"%@ %@", @"Article2: ", article);
+                       
+                       dispatch_async(dispatch_get_main_queue(), ^(void)
+                                      {
+                                          // Main thread work (UI usually)
+                                          _newsStory.story = article;
+                                          
+                                          NSString* htmlContentString = [NSString stringWithFormat:@"<html><head></head><body><p> %@ </p></body></html>", self.newsStory.story];
+                                          [_webView loadHTMLString:htmlContentString baseURL:nil];
+                                      });
+                   });
+    
+    
+
     [[[_webView subviews] lastObject] setScrollEnabled:NO];
     //  [self.view addSubview:_webView];
     
@@ -89,10 +106,7 @@
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    ArticleHTMLParser *parser = [[ArticleHTMLParser alloc] init];
-    NSString *article = [parser parseArticleHTML:_newsStory.link];
-    NSLog(@"%@ %@", @"Article2: ", article);
-    _newsStory.story = article;
+
     
 }
 
