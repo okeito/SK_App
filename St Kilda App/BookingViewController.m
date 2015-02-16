@@ -149,7 +149,7 @@
         mailComposer.mailComposeDelegate = self;
         mailComposer.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 
-        NSArray *toRecipients = [NSArray arrayWithObjects:@"truellusionist@gmail.com", nil];
+        NSArray *toRecipients = [NSArray arrayWithObjects:@"editor@stkildanews.com", nil];
         [mailComposer setToRecipients:toRecipients];
         [mailComposer setSubject:@"St Kilda App has a new booking from you!"];
         [mailComposer setMessageBody:emailBody isHTML:NO];

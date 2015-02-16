@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C99d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="f0A-Wb-FM0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="f0A-Wb-FM0">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -313,7 +313,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="850"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RWR-58-xu6">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RWR-58-xu6">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="850"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Title Here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="Jpy-d0-LMe">
@@ -343,7 +343,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="D6a-y3-Hci">
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="D6a-y3-Hci">
                                         <rect key="frame" x="0.0" y="650" width="320" height="200"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="400" id="UE7-kX-isu"/>
@@ -878,14 +878,14 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFO-Lc-86X">
                                 <rect key="frame" x="10" y="10" width="300" height="337"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">St Kilda News (SKN) is a social enterprise made for the St Kilda Community by the St Kilda Community. It is a citizen journalism publication and part of the OpenNews group. Local residents are encouraged to submit articles for publication to submit@stkildanews.com
+                                <mutableString key="text">The St Kilda App for iOS has been developed by St Kilda News in partnership with Okeito Shortte from MarvelUS. The app has been designed to provide easy access to local news, event and deals in the St Kilda area on your smartphone.
 
-The SKN team in partnership with MarvelUs have developed the St KIlda App so that you may access local news, local events, and local deals on your smartphone.
+Promote your event or amazing deal on the app by emailing sales@opennews.com.au or call 1300 48 55 11 (option 1 sales)
 
-For more info
-1300 48 55 11
-contact@stkildanews.com
-www.stkildanews.com</string>
+For more info about St Kilda App go to www.stkildaapp.com
+For more info about St Kiilda News go to www.stkildanews.com
+
+St Kilda News is part of the Open News Group www.opennews.com.au</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
