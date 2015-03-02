@@ -252,8 +252,14 @@ NSString * const IMG_BASE_URL = @"http://stkildanews.com/wp-content/plugins/Deal
     priceLabel.font = [UIFont fontWithName:@"BebasNeueBold" size:28];
     priceLabel.text = [NSString stringWithFormat:@"$%@", objectDeals.dealPrice];
     
+    UILabel *valueLabel = (UILabel *)[cell viewWithTag:4];
+    valueLabel.font = [UIFont fontWithName:@"BebasNeueBold" size:28];
+    valueLabel.text = [NSString stringWithFormat:@"$%@", objectDeals.dealValue];
+    
     UIImageView *imageView=(UIImageView *)[cell viewWithTag:3];
     imageView.image = nil;
+    
+    
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
@@ -304,7 +310,7 @@ NSString * const IMG_BASE_URL = @"http://stkildanews.com/wp-content/plugins/Deal
 // 1
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize cellSize = CGSizeMake(300, 290);
+    CGSize cellSize = CGSizeMake(300, 330);
     return cellSize;
 }
 

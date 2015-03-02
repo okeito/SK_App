@@ -426,7 +426,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="10" id="TVc-81-MzC">
-                            <size key="itemSize" width="270" height="290"/>
+                            <size key="itemSize" width="270" height="330"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -436,56 +436,37 @@
                                 <rect key="frame" x="25" y="64" width="270" height="270"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="270" height="290"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="270" height="330"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rAs-U2-xLr">
+                                        <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rAs-U2-xLr">
                                             <rect key="frame" x="1" y="20" width="270" height="200"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="200" id="YUc-a2-pPi"/>
-                                            </constraints>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Deal Title Here " lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="172" translatesAutoresizingMaskIntoConstraints="NO" id="meH-8z-etA">
-                                            <rect key="frame" x="10" y="228" width="172" height="48"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="48" id="2Gg-h7-fct"/>
-                                            </constraints>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" fixedFrame="YES" text="Deal Title Here " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="172" translatesAutoresizingMaskIntoConstraints="NO" id="meH-8z-etA">
+                                            <rect key="frame" x="10" y="228" width="250" height="48"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" verticalHuggingPriority="251" text="$000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPc-sM-nst">
-                                            <rect key="frame" x="190" y="228" width="71" height="48"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="71" id="49b-NA-NBV"/>
-                                            </constraints>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image=" DealsDivider" translatesAutoresizingMaskIntoConstraints="NO" id="hi3-kS-9Hy">
+                                            <rect key="frame" x="10" y="320" width="250" height="10"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" verticalHuggingPriority="251" fixedFrame="YES" text="$000.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YSp-gM-6BS">
+                                            <rect key="frame" x="145" y="264" width="117" height="48"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                                            <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" verticalHuggingPriority="251" fixedFrame="YES" text="$000.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPc-sM-nst">
+                                            <rect key="frame" x="18" y="265" width="117" height="48"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="33"/>
                                             <color key="textColor" red="0.36862745099999999" green="0.87058823529999996" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image=" DealsDivider" translatesAutoresizingMaskIntoConstraints="NO" id="hi3-kS-9Hy">
-                                            <rect key="frame" x="10" y="280" width="250" height="10"/>
-                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="rAs-U2-xLr" secondAttribute="trailing" constant="-1" id="1FF-jx-isj"/>
-                                    <constraint firstAttribute="trailing" secondItem="KPc-sM-nst" secondAttribute="trailing" constant="9" id="7oD-mw-Te7"/>
-                                    <constraint firstAttribute="bottom" secondItem="hi3-kS-9Hy" secondAttribute="bottom" id="E06-TM-tdA"/>
-                                    <constraint firstItem="hi3-kS-9Hy" firstAttribute="top" secondItem="KPc-sM-nst" secondAttribute="bottom" constant="4" id="Eu7-jc-in5"/>
-                                    <constraint firstItem="meH-8z-etA" firstAttribute="top" secondItem="rAs-U2-xLr" secondAttribute="bottom" constant="8" id="Fwq-04-RIz"/>
-                                    <constraint firstItem="KPc-sM-nst" firstAttribute="top" secondItem="rAs-U2-xLr" secondAttribute="bottom" constant="8" id="Owe-5h-JPa"/>
-                                    <constraint firstItem="KPc-sM-nst" firstAttribute="leading" secondItem="meH-8z-etA" secondAttribute="trailing" constant="8" symbolic="YES" id="QtM-Lm-xaG"/>
-                                    <constraint firstAttribute="trailing" secondItem="hi3-kS-9Hy" secondAttribute="trailing" constant="10" id="RbY-34-6MN"/>
-                                    <constraint firstItem="hi3-kS-9Hy" firstAttribute="leading" secondItem="ffO-Cb-M3X" secondAttribute="leading" constant="10" id="Tf5-du-Kut"/>
-                                    <constraint firstItem="meH-8z-etA" firstAttribute="leading" secondItem="ffO-Cb-M3X" secondAttribute="leading" constant="10" id="apV-YN-RkW"/>
-                                    <constraint firstItem="rAs-U2-xLr" firstAttribute="top" secondItem="ffO-Cb-M3X" secondAttribute="top" constant="20" id="cc0-5H-wpo"/>
-                                    <constraint firstItem="rAs-U2-xLr" firstAttribute="leading" secondItem="ffO-Cb-M3X" secondAttribute="leading" constant="1" id="dS5-rs-YJC"/>
-                                    <constraint firstItem="hi3-kS-9Hy" firstAttribute="top" secondItem="meH-8z-etA" secondAttribute="bottom" constant="4" id="ei7-P1-JAz"/>
-                                    <constraint firstAttribute="bottom" secondItem="hi3-kS-9Hy" secondAttribute="bottom" id="vnL-fw-EzD"/>
-                                </constraints>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -878,14 +859,14 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFO-Lc-86X">
                                 <rect key="frame" x="10" y="10" width="300" height="337"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <mutableString key="text">The St Kilda App for iOS has been developed by St Kilda News in partnership with Okeito Shortte from MarvelUS. The app has been designed to provide easy access to local news, event and deals in the St Kilda area on your smartphone.
+                                <string key="text">The St Kilda App for iOS has been developed by St Kilda News in partnership with Okeito Shortte from MarvelUs. The app has been designed to provide easy access to local news, event and deals in the St Kilda area on your smartphone.
 
 Promote your event or amazing deal on the app by emailing sales@opennews.com.au or call 1300 48 55 11 (option 1 sales)
 
 For more info about St Kilda App go to www.stkildaapp.com
 For more info about St Kiilda News go to www.stkildanews.com
 
-St Kilda News is part of the Open News Group www.opennews.com.au</mutableString>
+St Kilda News is part of the Open News Group www.opennews.com.au</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
